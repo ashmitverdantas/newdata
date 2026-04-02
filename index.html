@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Verdantas Market Tool v6</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --card: #1a1d27;
+      --card2: #20243a;
+      --accent: #4f9cf9;
+      --green: #22c55e;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --border: #2d3352;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #13162a, #0f1117);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hmeta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .dsrc {
+      background: #1e2238;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px 24px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .sechdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .secnum {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: .8rem;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .blend-bar {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .blend-bar label {
+      font-weight: 700;
+      color: #cbd5e1;
+      white-space: nowrap;
+      font-size: .82rem;
+    }
+
+    .blend-bar input[type=range] {
+      flex: 1;
+      min-width: 150px;
+      accent-color: var(--accent);
+    }
+
+    .blend-readout {
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 200px;
+      font-size: .82rem;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .kbox {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 15px;
+    }
+
+    .kbox .klbl {
+      font-size: .67rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .kbox .kval {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .mwt-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .mwt-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: .71rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mwt-lbl {
+      font-size: .69rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-right: 2px;
+    }
+
+    .mwt-name {
+      color: var(--muted);
+    }
+
+    .mwt-wt {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .mwt-eg {
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .cttl {
+      font-size: .71rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 10px;
+    }
+
+    .mkt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+      gap: 14px;
+    }
+
+    .mcard {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .mchdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .mcname {
+      font-weight: 700;
+      font-size: .88rem;
+    }
+
+    .badge {
+      font-size: .67rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .badge-strong-positive {
+      background: #0d2e1a;
+      color: #22c55e;
+    }
+
+    .badge-positive {
+      background: #1a2e1a;
+      color: #4ade80;
+    }
+
+    .badge-neutral {
+      background: #2a2a1a;
+      color: #fbbf24;
+    }
+
+    .badge-cautious {
+      background: #2e2010;
+      color: #fb923c;
+    }
+
+    .badge-negative {
+      background: #2e1a1a;
+      color: #f87171;
+    }
+
+    .wt-pill {
+      font-size: .65rem;
+      background: #1e2238;
+      color: var(--muted);
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 4px;
+    }
+
+    .mgrowth {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin: 4px 0 6px;
+    }
+
+    .kpi-list {
+      list-style: none;
+      font-size: .74rem;
+      color: var(--muted);
+    }
+
+    .kpi-list li {
+      padding: 2px 0;
+      border-bottom: 1px solid #1e2238;
+      display: flex;
+      gap: 6px;
+      line-height: 1.4;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .dot.sp {
+      background: #22c55e;
+    }
+
+    .dot.p {
+      background: #4ade80;
+    }
+
+    .dot.n {
+      background: #fbbf24;
+    }
+
+    .dot.c {
+      background: #fb923c;
+    }
+
+    .dot.neg {
+      background: #f87171;
+    }
+
+    .snote {
+      font-size: .69rem;
+      color: var(--muted);
+      margin-top: 7px;
+      font-style: italic;
+    }
+
+    .geo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .geo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .geo-card h3 {
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .mix-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .mix-row label {
+      font-size: .72rem;
+      color: var(--muted);
+      min-width: 150px;
+    }
+
+    .mix-row input[type=range] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+
+    .mval {
+      font-size: .72rem;
+      font-weight: 700;
+      min-width: 30px;
+      text-align: right;
+    }
+
+    .msum {
+      font-size: .71rem;
+      margin-top: 6px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .tbl-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .77rem;
+    }
+
+    th {
+      background: #1e2238;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: #1e2238;
+    }
+
+    .grp-row td {
+      background: #151828;
+      color: var(--accent);
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 5px 10px;
+    }
+
+    .hrec {
+      font-weight: 700;
+      font-size: .71rem;
+      padding: 2px 7px;
+      border-radius: 5px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .hr-agh {
+      background: #0d2e1a;
+      color: #22c55e;
+    }
+
+    .hr-h {
+      background: #1a2e1a;
+      color: #4ade80;
+    }
+
+    .hr-s {
+      background: #21243a;
+      color: #94a3b8;
+    }
+
+    .hr-r {
+      background: #2e2710;
+      color: #fbbf24;
+    }
+
+    .hr-agr {
+      background: #2e1a1a;
+      color: #ef4444;
+    }
+
+    .narr {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .narr-item {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .narr-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .narr-item h3 {
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .narr-body {
+      font-size: .77rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .narr-body strong {
+      color: #94a3b8;
+    }
+
+    .pos {
+      color: var(--green);
+    }
+
+    .neg2 {
+      color: var(--red);
+    }
+
+    .neu {
+      color: var(--amber);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 24px;
+      font-size: .7rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media(max-width:700px) {
+      .header {
+        padding: 12px 16px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+    }
+
+    #histChart,
+    #ppiChart {
+      width: 100%;
+      height: 220px;
+      display: block;
+      cursor: crosshair;
+    }
+
+    #chartTip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      background: #0b1020;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12px;
+      color: var(--text);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+      min-width: 220px;
+      display: none;
+    }
+
+    #chartTip .ct-month {
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    #chartTip .ct-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 3px;
+    }
+
+    #chartTip .ct-k {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #chartTip .ct-v {
+      font-weight: 800;
+    }
+
+    #chartTip .ct-sw {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    .invest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .invest-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .invest-card .ic-cat {
+      font-size: .63rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .invest-card .ic-rec {
+      font-size: .75rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .invest-card .ic-body {
+      font-size: .71rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .ic-strong {
+      color: #22c55e;
+    }
+
+    .ic-mod {
+      color: #4ade80;
+    }
+
+    .ic-light {
+      color: #94a3b8;
+    }
+
+    .ic-avoid {
+      color: #f87171;
+    }
+
+    .infl-recs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .infl-rec-card {
+      background: #1a1f2e;
+      border: 1px solid #2a3050;
+      border-radius: 8px;
+      padding: 14px 18px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .infl-rec-lbl {
+      font-size: .68rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+
+    .infl-rec-val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .infl-rec-txt {
+      font-size: .78rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div>
+      <h1>VERDANTAS MARKET TOOL <span style="color:var(--accent)">v6</span></h1>
+      <div style="color:var(--muted);font-size:.82rem;margin-top:2px;">6-Month Forward Organic Growth Outlook &mdash;
+        Engineering Services Intelligence</div>
+    </div>
+    <div class="hmeta">
+      <span id="dataBadge" class="dsrc">[BOOT]</span>
+      <span id="lastUpdated">&mdash;</span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="section">
+      <div class="sechdr">
+        <div class="secnum">1</div>
+        <h2>Consolidated Company Organic Growth</h2>
+      </div>
+      <div class="blend-bar">
+        <label>[DATA] Consolidated Blend: Internal B2B &larr;&rarr; External Market</label>
+        <input type="range" id="consBlendSlider" min="0" max="100" value="50" oninput="onConsBlend()" />
+        <div class="blend-readout" id="consBlendReadout">Internal: 50% / External: 50%</div>
+      </div>
+      <div class="kpi-row" id="consKPIs"></div>
+      <div class="mwt-bar" id="mwtBar"></div>
+      <div class="chart-wrap">
+        <div class="cttl">Internal Growth Signal % (calibrated) vs B2B Rolling 6-Mo Avg &mdash; hover for values</div>
+        <canvas id="histChart"></canvas>
+      </div>
+      <div class="narr" style="margin-top:16px;">
+        <h3 style="color:var(--accent);margin-bottom:12px;">Consolidated Outlook Narrative</h3>
+        <div id="consNarrBody"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="sechdr">
+        <div class="secnum">2</div>
+        <h2>Market Organic Growth Prediction <span style="color:var(--muted);font-weight:400;font-size:.82rem">(External
+            Data Only)</span></h2>
+      </div>
+      <div class="mkt-grid" id="marketGrid"></div>
+    </div>
+    <div class="section">
+      <div class="sechdr">
+        <div class="secnum">3</div>
+        <h2>P&amp;L Organic Growth &amp; Hiring Recommendations</h2>
+      </div>
+      <div class="blend-bar">
+        <label>[DATA] P&amp;L Blend: Internal B2B &larr;&rarr; External Market</label>
+        <input type="range" id="plBlendSlider" min="0" max="100" value="50" oninput="onPLBlend()" />
+        <div class="blend-readout" id="plBlendReadout">Internal: 50% / External: 50%</div>
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);margin-bottom:12px;font-weight:700;">Configure Geographic P&amp;L
+        External Market Mix <span style="font-weight:400;font-size:.72rem">(sliders auto-balance to 100%)</span></div>
+      <div class="geo-grid" id="geoGrid"></div>
+      <div class="tbl-wrap" style="margin-top:20px;">
+        <table>
+          <thead>
+            <tr>
+              <th>P&amp;L</th>
+              <th>B2B Avg</th>
+              <th>B2B Signal</th>
+              <th>Ext Growth</th>
+              <th>Raw Growth</th>
+              <th>PPI-Adj Growth</th>
+              <th>UTE (Avg / Goal / &Delta;)</th>
+              <th>Hiring Rec</th>
+            </tr>
+          </thead>
+          <tbody id="plBody"></tbody>
+        </table>
+        <div id="plFootnote" style="font-size:.67rem;color:var(--muted);margin-top:6px;"></div>
+      </div>
+      <div class="narr">
+        <h3 style="color:var(--accent);margin-bottom:12px;">P&amp;L Outlook Narratives</h3>
+        <div id="narrBody"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="sechdr">
+        <div class="secnum">4</div>
+        <h2>Price &amp; Labor Cost Intelligence</h2>
+      </div>
+      <div
+        style="font-size:.8rem;color:var(--muted);margin-bottom:14px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;line-height:1.7;">
+        <strong style="color:#94a3b8;">How to use:</strong> Use PPI Engineering Services to guide billing rate/fee
+        adjustments. Use ECI Prof &amp; Tech Services to guide compensation decisions.
+      </div>
+      <div class="chart-wrap" style="margin-bottom:18px;">
+        <div class="cttl">PPI YoY% vs ECI YoY% &mdash; hover for values</div>
+        <canvas id="ppiChart"></canvas>
+        <canvas id="eciChart" style="display:none;"></canvas>
+        <div id="inflRecs" style="margin-top:16px;"></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="sechdr">
+        <div class="secnum">5</div>
+        <h2>Buyer Attractiveness &mdash; Value Driver Analysis <span
+            style="color:var(--muted);font-weight:400;font-size:.82rem">(External Market Signals)</span></h2>
+      </div>
+      <div id="valueDriverGrid"
+        style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+    </div>
+  </div>
+  <div id="chartTip">
+    <div class="ct-month" id="ctMonth"></div>
+    <div id="ctRows"></div>
+  </div>
+  <footer>
+    Verdantas Market Tool v6 &mdash; Standalone static file, all data embedded.
+  </footer>
+<script>
+// ===== INLINE DATA (all JSON embedded) =====
+const DATA_CFG = {"tool": {"name": "Verdantas Market Tool v6", "horizon_months": 6, "neutral_b2b": 1.07}, "market": {"keys": ["power", "municipal", "reBrownfield", "reStarts", "federal", "industrial", "stateDot"], "names": {"power": "Power / Utility", "municipal": "Municipal", "reBrownfield": "RE Brownfield / Regulatory", "reStarts": "RE New Construction Starts", "federal": "Federal Engineering / Remediation", "industrial": "Industrial & Manufacturing", "stateDot": "State Govt / DOTs / Water"}, "short": {"power": "Power/Utility", "municipal": "Municipal", "reBrownfield": "RE Brownfield", "reStarts": "RE New Starts", "federal": "Federal", "industrial": "Industrial/Mfg", "stateDot": "State/DOT"}}, "geo": {"keys": ["northeast", "west", "midwest", "southeast"], "mix_labels": ["Municipal", "RE New Construction", "RE Brownfield/Regulatory", "Data Center/Power", "DOT/State Govt"], "mix_markets": ["municipal", "reStarts", "reBrownfield", "power", "stateDot"]}, "pl": {"list": [{"key": "northeast", "label": "Northeast", "type": "geo", "series_key": "northeast"}, {"key": "west", "label": "West", "type": "geo", "series_key": "west"}, {"key": "midwest", "label": "Midwest", "type": "geo", "series_key": "midwest"}, {"key": "southeast", "label": "South (incl. TX)", "type": "geo", "series_key": "southeast"}, {"key": "eng_pw", "label": "Energy – Power", "type": "energy", "series_key": "energy_services", "extKeys": ["power"], "extWts": [1.0]}, {"key": "eng_og", "label": "Energy – Oil & Gas", "type": "energy", "series_key": "energy_services", "extKeys": ["industrial"], "extWts": [1.0]}, {"key": "nbe_ehs", "label": "NBE – EHS & Facilities Eng. Design", "type": "nbe", "series_key": "nbe", "extKeys": ["industrial", "federal", "municipal"], "extWts": [0.5, 0.3, 0.2]}, {"key": "nbe_flow", "label": "NBE – Flow Simulation & Optimization", "type": "nbe", "series_key": "nbe", "extKeys": ["industrial", "power", "municipal"], "extWts": [0.4, 0.3, 0.3]}, {"key": "nbe_sf", "label": "NBE – Superfund Project Coordination", "type": "nbe", "series_key": "nbe", "extKeys": ["federal", "reBrownfield", "municipal"], "extWts": [0.5, 0.3, 0.2]}, {"key": "nbe_aq", "label": "NBE – Aquatic Ecology & Eco Engineering", "type": "nbe", "series_key": "nbe", "extKeys": ["municipal", "stateDot", "federal"], "extWts": [0.4, 0.35, 0.25]}]}, "calibration": {"lag_months": 6, "slope_window_months": 6, "slope_cap_pct": 2.0, "targets": {"flat": {"months": ["Jan'25", "Feb'25", "Mar'25", "Apr'25", "May'25", "Jun'25"], "growth": 0.0}, "growth": {"months": ["Jul'25", "Aug'25", "Sep'25", "Oct'25", "Nov'25", "Dec'25"], "growth": 4.0}}}, "ute": {"window_months": 3}};
+const DATA_TUNE = {"last_updated": "2026-03-28", "market_weights": {"power": 0.2, "municipal": 0.3, "reBrownfield": 0.15, "reStarts": 0.05, "federal": 0.05, "industrial": 0.15, "stateDot": 0.1}, "geo_slider_defaults": {"northeast": [30, 5, 55, 0, 10], "west": [10, 20, 20, 35, 15], "midwest": [50, 5, 25, 10, 10], "southeast": [0, 5, 35, 55, 5]}, "rules": {"market_weights_sum_to": 1.0, "geo_defaults_sum_to": 100, "geo_order": ["Municipal", "RE New Construction", "RE Brownfield/Regulatory", "Data Center/Power", "DOT/State Govt"], "notes": "Edit this file only when adjusting consolidated market weights or default geo mix sliders."}};
+const DATA_B2B = {"last_updated": "2026-03-28", "firmwide": {"months": ["Nov'23", "Dec'23", "Jan'24", "Feb'24", "Mar'24", "Apr'24", "May'24", "Jun'24", "Jul'24", "Aug'24", "Sep'24", "Oct'24", "Nov'24", "Dec'24", "Jan'25", "Feb'25", "Mar'25", "Apr'25", "May'25", "Jun'25", "Jul'25", "Aug'25", "Sep'25", "Oct'25", "Nov'25", "Dec'25", "Jan'26", "Feb'26", "Mar'26"], "values": [1.15, 1.15, 1.28, 1.17, 1.16, 0.95, 0.94, 1.04, 1.19, 1.09, 1.25, 1.12, 1.02, 0.9, 1.29, 1.37, 1.23, 1.03, 1.05, 1.13, 1.14, 1.06, 1.06, 0.94, 0.99, 1.28, 1.4, 1.21, 1.38]}, "pl_months": ["Jan", "Feb", "Mar"], "pl_series": {"midwest": [1.52, 1.63, 1.99], "northeast": [1.81, 1.33, 1.21], "southeast": [0.95, 0.52, 1.47], "west": [1.11, 0.93, 1.05], "energy_services": [1.17, 1.04, 1.19], "nbe": [1.25, 1.1, 1.48]}};
+const DATA_EXT = {"last_updated": "2026-03-30", "consolidated": {"summary": "External demand for engineering and environmental services across Verdantas's markets remains broadly positive through mid-2026, led by structural tailwinds in power infrastructure, municipal water compliance, and brownfield remediation. Data center-driven electricity demand is generating unprecedented grid engineering workloads, while EPA PFAS MCLs and IIJA-funded SRF programs sustain non-discretionary municipal capital investment pipelines. Federal market headwinds are significant: the FY2026 EPA budget proposes a 54% cut to $4.16 billion, creating material downside risk for Superfund, SRF, and federal environmental services. Overall confidence is medium, reflecting strong private and regulatory-driven demand offset by federal funding and housing affordability headwinds.", "tailwinds": ["Data center AI buildout is reshaping U.S. electricity demand at a pace not seen since 2000; Enerdatics tracks over 240 GW of cumulative power demand across 4,000+ operating and planned U.S. data centers, driving multi-year grid engineering, transmission planning, and substation workloads — Enerdatics State of the Market Report, Feb 2026.", "EPA PFAS MCLs finalized in 2024 at 4 ppt for PFOA/PFOS are compelling compliance investment at approximately 66,000 public water systems, while proposed FY2026 SRF cuts are spurring states to accelerate project authorizations under existing IIJA funding before any transition — InsideEPA, Jun 2025; EPA, 2024.", "IIJA infrastructure funds continue flowing to state DOTs at peak obligation levels, with state DOT engineering and environmental services spending up approximately 6% in 2024 as IIJA funds reached full obligation stage — ACEC Research Institute, 2025."], "headwinds": ["FY2026 EPA budget proposes a 54% cut from $9.14B to $4.16B, including a $2.46B reduction to SRFs, $254M cut to Superfund, and elimination of $1B in categorical grants to state environmental programs — posing the single largest near-term risk to federally-dependent environmental services — EPA Budget in Brief, May 2025; CRS R48575, Jun 2025.", "U.S. housing starts and permits remain constrained, with 2025 total starts at 1.36M units — the fourth consecutive year of decline — and January 2026 permits falling 5.8% year-over-year to 1.376M SAAR; mortgage rates near 6.2% and persistent affordability constraints limit near-term new construction environmental services demand — Census Bureau, Mar 2026; NAHB, Feb 2026.", "Tariff-driven materials cost uncertainty and immigration policy impacts on construction labor supply are elevating builder risk aversion, with NAHB projecting only 1% single-family starts growth in 2026 and Fannie Mae projecting a 3% decline, suppressing environmental permitting and site civil engineering workloads tied to residential development — NAHB, Feb 2026; Bantry Partners, Mar 2026."], "watch_items": ["Congressional action on the FY2026 EPA appropriations bill is the single most consequential near-term variable: the House Interior Subcommittee's bill proposes a 23% EPA cut (vs. the administration's 54% request), and the final enacted level will determine the severity of impact on SRF, Superfund, and state environmental program pipelines — WaterWorld, Jul 2025.", "IIJA surface transportation and water program authorization expires September 30, 2026; failure to reauthorize would create a significant pipeline gap for state DOT and municipal water engineering workloads beginning in FY2027, representing the primary medium-term structural risk to infrastructure-driven revenue."], "confidence": "Medium"}, "markets": {"power": {"extGrowth": 9.5, "status": "Strong Growth", "statusClass": "badge-strong-positive", "kpis": [{"dot": "sp", "text": "Enerdatics tracks 240+ GW of cumulative power demand across 4,000+ U.S. operating and planned data centers as of Feb 2026; site selection is now fundamentally a power strategy as interconnection backlogs and transmission constraints define the binding constraint — Enerdatics State of the Market Report, Feb 2026."}, {"dot": "sp", "text": "PJM approved its largest-ever regional transmission plan in February 2025 — a $6.7B initiative to build a new 765 kV backbone — directly in response to Northern Virginia data center demand shock; SPP separately approved a $7.7B transmission expansion in October 2024 — EnkiAI Grid Congestion Analysis, 2026."}, {"dot": "p", "text": "CBRE 2026 Data Center Outlook reports preleasing activity in the mid-70% range with large-block capacity commanding premiums; power deliverability has replaced connectivity as the primary site selection criterion, driving utility coordination and interconnection study workloads — CBRE 2026 U.S. Real Estate Market Outlook."}, {"dot": "p", "text": "Within three years, Texas is poised to become the nation's leading data center market as legacy markets lose relative share; ERCOT and West Texas are emerging as growth corridors, generating new substation and transmission engineering demand — Bloom Energy 2026 Data Center Power Report."}, {"dot": "n", "text": "Construction timelines for large AI campuses are extending into multi-year periods due to interconnection complexity and electrical equipment supply chain constraints (transformers, switchgear), potentially deferring near-term engineering revenue recognition — CBRE 2026 Data Center Outlook; Bloom Energy, Jan 2026."}], "tailwind": "AI-driven data center buildout and grid decarbonization are producing multi-year utility capital programs at unprecedented scale. Power deliverability — not demand — is now the binding constraint, generating sustained transmission planning, substation engineering, and interconnection study workloads with strong forward visibility through 2028 and beyond.", "headwind": "Interconnection queue backlogs and supply chain constraints on large power transformers and switchgear are extending project timelines by 2–4 years in some markets, potentially deferring engineering revenue recognition and creating project scheduling uncertainty on large infrastructure contracts."}, "municipal": {"extGrowth": 6.0, "status": "Solid Growth", "statusClass": "badge-positive", "kpis": [{"dot": "sp", "text": "EPA PFAS MCLs at 4 ppt for PFOA/PFOS are compelling mandatory compliance investment at approximately 66,000 public water systems; New England and Mid-Atlantic state PFAS rules exceed federal standards, driving early compliance engineering demand at POTWs and drinking water utilities — EPA, 2024; InsideEPA, Jun 2025."}, {"dot": "p", "text": "IIJA SRF funding remains at elevated levels despite proposed FY2026 cuts; the House appropriations bill would set CWSRF at $1.21B and DWSRF at $895M — well above the presidential request — sustaining near-term capital project pipelines — WaterWorld, Jul 2025."}, {"dot": "p", "text": "NACWA is urging Congress to reauthorize CWSRF at minimum $3.25B/yr and WIFIA at $75M/yr post-IIJA, reflecting broad utility advocacy for sustained federal water investment — NACWA, Jan 2026."}, {"dot": "n", "text": "Presidential FY2026 budget proposes cutting CWSRF by $1.5B, DWSRF by $976M, and zeroing out categorical grants totaling $1B to state environmental programs; if enacted, states warn they may return delegated programs to EPA — InsideEPA, Jun 2025; WaterWorld, Jul 2025."}, {"dot": "c", "text": "EPA Administrator Zeldin is exploring innovative PFAS treatment methods to reduce compliance costs even as enforcement staff is reduced, signaling continued regulatory intent on PFAS MCL implementation despite budget pressures — Fox Rothschild / PFAS Blog, May 2025."}], "tailwind": "PFAS compliance mandates and IIJA-SRF capitalization are generating durable, multi-year engineering workloads at water utilities that are broadly insulated from economic cycles. Even at the House-proposed SRF funding levels, capital project pipelines through 2026 remain well-supported.", "headwind": "Proposed FY2026 SRF cuts and elimination of $1B in categorical grants to state environmental programs pose meaningful risk to municipal capital program pipelines in FY2027 and beyond, with some states warning of potential program delegation reversals if cuts are enacted as proposed."}, "reBrownfield": {"extGrowth": 4.5, "status": "Steady Growth", "statusClass": "badge-positive", "kpis": [{"dot": "p", "text": "IIJA provided $1.5B for EPA Brownfields assessment and cleanup grants through FY2026, sustaining Phase I/II and remediation demand across the active grant portfolio — EPA Brownfields, 2025."}, {"dot": "p", "text": "Domestic manufacturing reshoring driven by CHIPS Act and IRA is generating active brownfield assessment, RCRA corrective action, and redevelopment permitting demand in former industrial corridors in the Midwest and Southeast — Brookings Institution, 2025."}, {"dot": "p", "text": "RCRA corrective action universe remains approximately 3,700 facilities still requiring cleanup milestones, providing a large, durable base of regulatory-driven remediation work largely independent of CRE market cycles — EPA RCRA Dashboard, 2025."}, {"dot": "neg", "text": "FY2026 presidential budget proposes cutting Superfund and brownfields cleanup funding by $254M, which could reduce regulatory enforcement urgency and delay RCRA corrective action milestone achievement at some facilities — National Law Review, May 2025; InsideEPA, Jun 2025."}, {"dot": "n", "text": "Elevated commercial real estate interest rates continue to suppress voluntary Phase I/II transaction-driven activity, partially offsetting the structural growth from regulatory-driven RCRA and IIJA Brownfields work — CoStar, Q4 2025."}], "tailwind": "IIJA Brownfields grant funding and domestic manufacturing reshoring are sustaining Phase I/II and remediation pipelines largely independent of CRE market cycles. The durable RCRA corrective action base provides recurring, regulation-driven revenue with limited exposure to discretionary client spending.", "headwind": "Proposed EPA budget cuts to Superfund and brownfields programs could reduce regulatory enforcement urgency and slow RCRA corrective action milestone achievement, moderating demand growth from the regulatory-driven segment of this market."}, "reStarts": {"extGrowth": 1.0, "status": "Soft / Flat", "statusClass": "badge-neutral", "kpis": [{"dot": "neg", "text": "U.S. building permits at 1.376M SAAR in January 2026 — down 5.4% month-over-month and 5.8% year-over-year — with single-family permits falling for the second consecutive month; forward indicator signals continued near-term softness — Census Bureau, Mar 2026."}, {"dot": "neg", "text": "2025 total housing starts at 1.359M units — the fourth consecutive year of decline and 0.6% below 2024 — with full-year 2026 consensus across NAHB, Fannie Mae, Wells Fargo, and Deloitte projecting flat to -5% — Bantry Partners, Mar 2026."}, {"dot": "n", "text": "30-year fixed mortgage rate near 6.2% in early 2026 with NAHB projecting rates to remain above 6% through year-end; sustained sub-6% rates unlikely until 2027 — NAHB, Feb 2026."}, {"dot": "p", "text": "January 2026 housing starts surged 7.2% to 1.487M SAAR, driven almost entirely by a 30% jump in multifamily; single-family starts fell 2.8%, and permitting pulled back, limiting confidence in sustained momentum — Census Bureau, Mar 2026; TD Economics, Mar 2026."}, {"dot": "neg", "text": "Immigration policy impacts on construction labor supply and tariff-driven material cost inflation (above 3% since June 2025) are compounding builder risk aversion, with over one-third of builders cutting prices in February 2026 — NAHB, Feb 2026; Bantry Partners, Mar 2026."}], "tailwind": "Multifamily permit recovery and persistent housing supply shortage (estimated 1.2M unit deficit nationally) provide a floor for environmental permitting, wetlands delineation, and stormwater work, particularly in Southeast and Sun Belt markets where population-driven demand remains structurally supportive.", "headwind": "Mortgage rates above 6%, persistent affordability constraints, labor shortages, and tariff-driven material cost inflation are suppressing single-family starts and new residential development activity, limiting demand growth for environmental permitting, geotechnical, and site civil/environmental engineering services."}, "federal": {"extGrowth": -3.0, "status": "Declining", "statusClass": "badge-negative", "kpis": [{"dot": "neg", "text": "FY2026 EPA budget proposed at $4.16B — a 54.45% cut from FY2025 enacted $9.14B — with EPA staffing targeted to lowest levels since 1985; House bill moderates to a 23% cut but both scenarios represent significant workforce and program reductions — CRS R48575, Jun 2025; WaterWorld, Jul 2025."}, {"dot": "neg", "text": "Presidential FY2026 budget proposes cutting Superfund by $254M and zeroing out $1B in categorical grants to state environmental programs, with House bill setting Superfund at $282.75M equal to the budget request — National Law Review, May 2025; WaterWorld, Jul 2025."}, {"dot": "neg", "text": "DOGE-related DoD budget reductions and workforce cuts across Army Corps, Navy, and USACE programs are slowing contract awards, creating procurement backlogs and schedule risk for firms dependent on federal agency approvals — multiple agency reports, Q1 2026."}, {"dot": "p", "text": "USACE FY2026 civil works appropriation of $10.44B exceeds the presidential request, providing near-term O&M and construction management contract opportunities for qualified federal contractors in water resources and navigation — CRS IF13039, Feb 2026."}, {"dot": "neg", "text": "Federal workforce reductions at EPA, USACE, and DoD are creating permitting throughput backlogs that slow project milestones and contract award timelines, creating revenue timing uncertainty even on projects with existing funding — multiple agency reports, Q1 2026."}], "tailwind": "USACE civil works appropriations above the presidential request provide near-term contract opportunities in O&M, construction management, and water resources engineering; IIJA advance appropriations to EPA for FY2026 provide a partial buffer against annual appropriations reductions for some program areas.", "headwind": "A 54% proposed reduction in EPA's discretionary budget, significant DoD and USACE DOGE-related workforce reductions, and federal contract award slowdowns are creating a materially negative environment for federally-funded engineering and environmental services through mid-2026 and beyond."}, "industrial": {"extGrowth": 3.5, "status": "Moderate Growth", "statusClass": "badge-positive", "kpis": [{"dot": "p", "text": "U.S. manufacturing construction spending reached record levels in 2024-2025 driven by CHIPS Act semiconductor and IRA battery/EV facility investment, sustaining multi-year EHS compliance program development and air/water permitting demand — Census Bureau, 2025."}, {"dot": "p", "text": "Domestic reshoring of semiconductor, battery, and pharmaceutical manufacturing is generating multi-year environmental permitting and EHS program development workloads at new facilities in the Midwest, Southeast, and Southwest — Brookings Institution, 2025."}, {"dot": "n", "text": "Tariff-driven input cost uncertainty is causing some manufacturers to defer facility expansion and capital upgrade decisions, potentially reducing near-term permitting workloads at margin-sensitive industrial operators — Deloitte E&C Outlook, 2026."}, {"dot": "p", "text": "EPA air quality and PFAS-related industrial discharge rules are expanding compliance obligations at food processing, textile, and metal finishing facilities, creating new non-discretionary EHS engineering demand beyond the traditional industrial base — EPA, 2025."}, {"dot": "n", "text": "Potential EPA regulatory rollback and enforcement budget reductions may reduce compliance urgency at some industrial operators, deferring non-mandatory EHS investments and moderating near-term demand for facilities engineering services — EPA FY2026 budget proposals, 2025."}], "tailwind": "CHIPS Act and IRA-driven manufacturing reshoring continues to generate multi-year EHS compliance, air/water permitting, and industrial hygiene workloads at new semiconductor, battery, and pharmaceutical facilities, providing a durable and well-capitalized client base with long program management contract opportunities.", "headwind": "Tariff uncertainty and potential EPA regulatory rollback are causing some industrial operators to defer non-mandatory compliance investments and capital upgrade projects, moderating near-term demand growth and creating variability in project authorization timing."}, "stateDot": {"extGrowth": 3.5, "status": "Moderate Growth", "statusClass": "badge-positive", "kpis": [{"dot": "p", "text": "IIJA committed $110B for roads and bridges with multi-year obligation authority at peak obligation levels in FY2025-FY2026; state DOT engineering and environmental services spending grew approximately 6% in 2024 — ACEC Research Institute, 2025."}, {"dot": "p", "text": "IIJA Bridge Formula Program ($40B over 5 years) is generating sustained NEPA documentation, ecological study, and wetland mitigation work on highway corridor projects at state DOTs nationally — FHWA, 2025."}, {"dot": "p", "text": "FERC Orders 1920 and 2023 and ISO/RTO reforms are embedding 20–30 year transmission planning horizons, indirectly sustaining NEPA and ecological study workloads tied to transmission corridor projects — ZEG Transmission Planning Analysis, Oct 2025."}, {"dot": "neg", "text": "IIJA surface transportation authorization expires September 30, 2026; failure to reauthorize would create a significant pipeline gap for state DOT environmental and engineering services beginning in FY2027 — National League of Cities, Dec 2025."}, {"dot": "n", "text": "Executive order NEPA reform may reduce environmental study scope requirements on transportation projects, potentially compressing billable hours per project even as project volume continues to grow — White House EO 14154, 2025."}], "tailwind": "IIJA infrastructure funds continue flowing to state DOTs at peak obligation levels, generating durable NEPA documentation, ecological mitigation, and highway corridor environmental study work through at least the end of FY2026 with a well-funded project pipeline in active execution.", "headwind": "IIJA authorization expiration in September 2026 and potential NEPA scope reductions under executive orders represent the primary downside risks to state DOT environmental and engineering service volumes in the second half of 2026 and into 2027."}}, "inflation": {"ppi": {"label": "PPI: Engineering Services (PCU541330541330)", "quarters": ["Q1'23", "Q2'23", "Q3'23", "Q4'23", "Q1'24", "Q2'24", "Q3'24", "Q4'24", "Q1'25", "Q2'25", "Q3'25", "Q4'25"], "index": [199.1, 200.4, 201.3, 202.8, 203.1, 204.7, 205.6, 206.6, 204.5, 205.7, 206.2, 207.4]}, "eci": {"label": "ECI: Wages & Salaries — Prof/Sci/Tech Services (CIS2025400000000I)", "quarters": ["Q1'23", "Q2'23", "Q3'23", "Q4'23", "Q1'24", "Q2'24", "Q3'24", "Q4'24", "Q1'25", "Q2'25", "Q3'25", "Q4'25"], "index": [159.7, 161.0, 162.5, 163.9, 165.9, 167.4, 167.5, 169.8, 171.3, 172.8, 174.1, 175.4]}}, "value_drivers": [{"rank": 1, "title": "Non-Discretionary Regulatory Compliance Revenue Base", "body": "PFAS MCLs, RCRA corrective action requirements, and EPA air/water rules create multi-year, mandate-driven engineering workloads that are largely insulated from economic cycles and client discretion. Buyers pay a premium for firms with recurring regulatory compliance revenue because cash flow is driven by statutory deadline rather than market sentiment. The visible PFAS compliance pipeline across 66,000+ water systems through 2028 provides revenue durability that commands higher EBITDA multiples in the current M&A market.", "tags": ["PFAS", "Regulatory", "Compliance"]}, {"rank": 2, "title": "Power Grid & Data Center Engineering Scarcity", "body": "With Enerdatics tracking 240+ GW of cumulative U.S. data center power demand and PJM approving a $6.7B transmission backbone in direct response to data center load growth, firms with transmission planning, substation engineering, and interconnection study capabilities are in acute short supply nationally. Strategic buyers and PE platforms are actively acquiring these capabilities as a platform investment thesis given multi-year demand visibility and the structural constraint of power deliverability over project demand. Scarcity of qualified engineering talent in this space further elevates the platform acquisition premium.", "tags": ["Grid", "Data Centers", "Interconnection"]}, {"rank": 3, "title": "IIJA-Backed Infrastructure Pipeline Duration", "body": "IIJA's $1.2T in committed infrastructure spending provides state DOT and municipal water engineering firms with a multi-year, federally-backstopped revenue pipeline at peak obligation levels through FY2026. Buyers value the duration and low-churn characteristics of IIJA-tied contract vehicles relative to market-rate work, and the current obligation pipeline extends well-defined engineering workloads into 2027 even under reauthorization uncertainty. Multi-state delivery capability across IIJA program types — surface transportation, water, and brownfields — is a differentiated platform attribute that buyers will pay for.", "tags": ["IIJA", "Infrastructure", "State DOT"]}, {"rank": 4, "title": "Brownfield & Remediation Reshoring Platform Value", "body": "Domestic manufacturing reshoring driven by CHIPS Act and IRA is generating active brownfield assessment, RCRA corrective action, and redevelopment permitting demand in former industrial corridors that are difficult for new entrants to serve without established regulatory relationships and multi-state delivery capability. Environmental remediation firms represent difficult-to-replicate platforms for strategic buyers seeking regulated-market exposure with defensive cash flow characteristics. The convergence of reshoring tailwinds and IIJA Brownfields grant funding makes this a high-conviction acquisition thesis with strong near-term deal activity.", "tags": ["Brownfield", "Remediation", "Reshoring"]}, {"rank": 5, "title": "Municipal Water Secular Reinvestment Cycle", "body": "Decades of deferred municipal water and wastewater investment, combined with EPA PFAS mandates and elevated IIJA-SRF capitalization, are producing a multi-cycle reinvestment wave with strong public-sector credit backing and non-cyclical demand characteristics. Firms with PFAS treatment design, hydraulic modeling, and collection system rehabilitation capabilities are positioned in a market with 10+ year demand visibility that is broadly insulated from interest rate and economic cycle risk. PE and strategic buyers increasingly recognize water-focused engineering platforms as a premium asset class in infrastructure-adjacent investing, commanding higher multiples than general AEC firms.", "tags": ["Water", "Municipal", "SRF"]}], "pl_narratives": {"northeast": {"external_drivers": "The Northeast is one of the strongest regional markets for environmental and engineering services, anchored by some of the nation's most stringent state environmental regulations, aging water infrastructure, and active brownfield redevelopment in Connecticut, New York, New Jersey, and Massachusetts. PFAS compliance investment is particularly concentrated in the Northeast, where New England state PFAS wastewater regulations exceed federal MCLs and are driving early compliance engineering demand at POTWs and drinking water systems ahead of federal deadlines. IIJA-funded SRF programs are advancing multi-year water and wastewater capital pipelines across the region. State DOT programs in New York, Massachusetts, and Connecticut are advancing IIJA highway and bridge corridors with active NEPA documentation and ecological study requirements.", "influencers": ["New England PFAS wastewater regulations among the most stringent nationally — driving early compliance engineering investment at POTWs and drinking water systems well ahead of federal MCL deadlines, with Massachusetts and Connecticut leading regulatory intensity (InsideEPA, Jun 2025).", "New York State CLCPA is accelerating utility-scale renewable energy permitting, ISO-NE and NYISO interconnection study, and substation engineering workloads, creating a concentrated near-term power engineering demand corridor in the Mid-Atlantic and New England markets.", "Active brownfield redevelopment programs in former industrial corridors — Hudson Valley, Hartford, Providence, Newark, and Boston inner ring — are sustained by EPA Brownfields grants and state revolving fund awards, generating multi-year Phase I/II and remediation workloads."], "investment_recs": {"municipal": {"rating": "Strong Invest", "text": "PFAS compliance, lead service line replacement, and SRF-funded capital programs create multi-year, non-discretionary engineering workloads across the densely populated Northeast water utility market. Prioritize PFAS treatment design, hydraulic modeling, and SRF application support capabilities to capture the largest share of this durable pipeline."}, "reStarts": {"rating": "Light", "text": "High land costs, permitting complexity, and mortgage affordability constraints are suppressing new residential construction in most Northeast metros. Limited wetlands and stormwater permitting work is available, but volumes are modest and project economics are challenging relative to other regions."}, "reBrownfield": {"rating": "Strong Invest", "text": "Legacy industrial sites, coastal redevelopment pressure, and active state brownfield grant programs in NY, NJ, CT, and MA sustain strong Phase I/II and remediation workloads largely insulated from CRE market cycles. Regulatory complexity in the Northeast adds billable scope per project relative to other regions."}, "power": {"rating": "Moderate Invest", "text": "ISO-NE and NYISO grid interconnection, CLCPA-driven offshore wind permitting, and substation engineering are creating meaningful near-term opportunities. Transmission planning and NEPA study workloads are building but not yet at peak deployment phase; near-term opportunities are concentrated in interconnection studies and utility coordination."}, "stateDot": {"rating": "Moderate Invest", "text": "IIJA bridge and highway programs in NY, MA, CT, and NJ are generating sustained NEPA documentation, wetland mitigation, and ecological study work. State DOT budgets are relatively stable through FY2026, though IIJA reauthorization risk creates uncertainty for the FY2027 pipeline."}}, "watch_items": ["New York offshore wind project financing challenges and contractor disputes could reduce near-term transmission and interconnection permitting workloads in the ISO-NE and NYISO footprints, creating near-term revenue variability in the power engineering pipeline.", "EPA and state regulatory enforcement slowdowns due to staffing reductions could delay PFAS compliance investment timelines at some Northeast water utilities, pushing project authorizations from late 2026 into 2027 and creating revenue timing uncertainty."]}, "west": {"external_drivers": "The West Coast and Mountain West markets are driven by a distinctive mix of data center and grid expansion in CAISO and WECC, water scarcity engineering, and active brownfield redevelopment tied to industrial and tech sector land use. California's stringent environmental regulatory environment sustains Phase I/II, air permitting, and CEQA-driven workloads across industrial and commercial sectors largely independent of federal regulatory posture. CAISO grid modernization and transmission expansion are generating significant NEPA, permitting, and substation engineering demand, with incremental data center development increasingly shifting toward Nevada, Arizona, and the Pacific Northwest as California grid constraints intensify. Water supply engineering tied to drought resilience, recycled water, and groundwater recharge is a structural growth driver across Arizona, Nevada, and Colorado.", "influencers": ["California CEQA requirements and state PFAS action levels create a high-regulatory-intensity environment sustaining environmental engineering demand independent of federal regulatory posture, with California state programs providing a durable backstop against federal funding uncertainty.", "Data center expansion is shifting toward Nevada, Arizona, and the Pacific Northwest as California grid constraints intensify; Texas is poised to become the nation's leading data center market within three years, creating a West-to-Southwest demand migration that firms with multi-state capability can capture (Bloom Energy, 2026).", "Western water scarcity and Colorado River Compact pressures are generating sustained demand for water supply planning, recycled water engineering, and groundwater modeling services across California, Arizona, Nevada, and Colorado — a structural, multi-decade demand driver insulated from federal budget cycles."], "investment_recs": {"municipal": {"rating": "Strong Invest", "text": "Drought-driven water supply investment, recycled water program expansion, and PFAS compliance are generating durable engineering workloads across California, Arizona, and Colorado water utilities. Water scarcity is a structural, multi-decade driver that provides the strongest long-term demand visibility in the West."}, "reStarts": {"rating": "Moderate Invest", "text": "Housing supply shortage and population growth in Arizona, Nevada, and Colorado are sustaining permitting and site civil work despite high mortgage rates. California new construction activity remains constrained by cost and regulatory complexity, limiting volume growth in the state's largest markets."}, "reBrownfield": {"rating": "Moderate Invest", "text": "Tech sector land reuse, former industrial site redevelopment in the Bay Area and Los Angeles Basin, and state brownfield programs sustain Phase I/II and remediation activity. CEQA-driven environmental review adds billable scope per project relative to other regions."}, "power": {"rating": "Strong Invest", "text": "CAISO transmission expansion, renewable interconnection, and data center power infrastructure in Nevada, Arizona, and the Pacific Northwest are creating multi-year NEPA, permitting, and substation engineering demand. The Western grid is among the most active nationally for engineering workload generation."}, "stateDot": {"rating": "Light", "text": "California and other Western DOTs are advancing IIJA programs, but CEQA permitting complexity and high labor costs constrain project throughput. Environmental study scope is high per project but overall volume growth is moderate relative to the Southeast and Midwest, limiting upside in this segment."}}, "watch_items": ["California's ongoing budget deficit and Proposition-constrained spending could delay state infrastructure program authorizations in 2026, slowing DOT and water agency project starts and creating near-term revenue timing gaps in the region's largest state market.", "AI data center buildout in Nevada and Arizona is creating water use and power supply conflicts that could trigger new regulatory review requirements, creating both risk (permitting delays) and opportunity (environmental assessment and compliance engineering) for environmental firms."]}, "midwest": {"external_drivers": "The Midwest is experiencing a manufacturing renaissance driven by CHIPS Act semiconductor investment, EV battery plant construction, and domestic steel and industrial capacity expansion, generating significant EHS compliance, air permitting, and industrial environmental workloads across Ohio, Michigan, Indiana, and Illinois. Municipal water and wastewater investment is robust, particularly in Ohio, Michigan, and Indiana, where aging Great Lakes-region infrastructure and PFAS compliance are driving SRF-funded capital programs at significant scale. State DOT programs in Illinois, Ohio, and Michigan are among the highest-volume IIJA obligators nationally, generating active NEPA, ecological, and wetland mitigation workloads. Brownfield redevelopment in former automotive and steel corridors is sustaining active Phase I/II and remediation pipelines with strong reshoring tailwinds.", "influencers": ["CHIPS Act and IRA-driven manufacturing investment in Ohio, Michigan, and Indiana is generating multi-year EHS compliance, air/water permitting, and industrial hygiene workloads at new and expanding semiconductor, battery, and automotive facilities, with well-capitalized clients providing long-duration program management opportunities.", "Great Lakes water quality programs and Michigan/Ohio PFAS enforcement actions are driving accelerated water system engineering investment at municipal utilities, with SRF funding sustaining capital program pipelines through the current authorization period.", "Illinois, Ohio, and Michigan DOTs are among the highest-volume IIJA obligators nationally, generating active NEPA, ecological study, and wetland mitigation workloads on highway and bridge corridor projects through at least FY2026."], "investment_recs": {"municipal": {"rating": "Strong Invest", "text": "Great Lakes region water infrastructure investment, PFAS compliance, and SRF-funded capital programs across Ohio, Michigan, and Indiana are generating multi-year, non-discretionary engineering demand. Lead service line replacement programs and combined sewer overflow compliance add near-term volume to an already robust pipeline."}, "reStarts": {"rating": "Moderate Invest", "text": "Midwest housing affordability relative to coastal markets is sustaining new residential construction activity in suburban corridors around Columbus, Indianapolis, and Kansas City, generating wetlands, stormwater, and site civil permitting workloads at volumes that outperform the national average."}, "reBrownfield": {"rating": "Strong Invest", "text": "Manufacturing reshoring and EV/battery facility development in former automotive corridors in Michigan, Ohio, and Indiana are generating active brownfield assessment, RCRA corrective action, and redevelopment permitting work. This is among the strongest regional brownfield markets nationally in 2026."}, "power": {"rating": "Moderate Invest", "text": "PJM transmission expansion, MISO grid investment, and data center buildout in Ohio and Indiana are creating grid interconnection and substation engineering opportunities. Utility capital investment is rising steadily with good near-term contract visibility, though regulatory complexity is lower than coastal markets."}, "stateDot": {"rating": "Strong Invest", "text": "Midwest DOTs are high-volume IIJA obligators with active NEPA, ecological mitigation, and wetland study workloads on highway and bridge corridor projects. Illinois, Ohio, and Michigan represent particularly strong state agency markets through the current authorization period, providing durable near-term revenue."}}, "watch_items": ["EV battery plant cancellations or demand slowdowns driven by tariff uncertainty and consumer adoption rates could reduce near-term industrial environmental permitting workloads in Michigan and Indiana in H2 2026, creating variability in the manufacturing services pipeline.", "IIJA reauthorization failure in September 2026 would create a meaningful pipeline gap for Midwest state DOT environmental services beginning in FY2027, representing the primary downside risk to the region's infrastructure-driven revenue base."]}, "southeast": {"external_drivers": "The Southeast is one of the fastest-growing regional engineering services markets, driven by population-led infrastructure investment, active residential and commercial construction, and a large and expanding industrial and data center base. Florida, Georgia, Texas, and the Carolinas are advancing significant water and wastewater capital programs to serve rapid population growth, with SRF-funded pipelines among the most active nationally. Data center development in northern Virginia, Georgia, and Texas is sustaining power permitting and utility engineering workloads at scale, with Texas poised to become the nation's leading data center market within three years according to Bloom Energy. State DOT programs are among the most active nationally given sustained population and traffic growth generating NEPA, ecological, and wetland mitigation workloads.", "influencers": ["Southeast population growth is generating persistent water and wastewater capacity expansion needs, with Florida, Georgia, and Texas utilities advancing multi-year SRF-funded capital programs to serve new service connections at a pace that outstrips most other regions nationally.", "Data center investment concentration in northern Virginia, Atlanta, and Dallas-Fort Worth is driving grid interconnection, water supply, and environmental permitting demand at scale; Texas is emerging as the next major hyperscale hub with ERCOT grid expansion generating new transmission and substation engineering workloads (Bloom Energy, Jan 2026).", "Active residential and commercial development markets in Florida, Texas, and the Carolinas are sustaining environmental permitting, wetlands delineation, and stormwater workloads despite national housing affordability headwinds, with January 2026 housing starts in the South up 11.4% month-over-month (Census Bureau, Mar 2026)."], "investment_recs": {"municipal": {"rating": "Strong Invest", "text": "Rapid population growth and aging infrastructure are driving water and wastewater capital investment across Florida, Georgia, Texas, and the Carolinas. SRF funding and utility rate increases are supporting multi-year project pipelines with strong near-term authorization momentum and favorable client credit quality."}, "reStarts": {"rating": "Strong Invest", "text": "The Southeast remains the most active U.S. new construction market, with Florida, Texas, and the Carolinas sustaining environmental permitting, wetlands, and site civil workloads despite national mortgage rate headwinds. Population-driven demand is the primary structural driver and provides the strongest regional new construction outlook nationally."}, "reBrownfield": {"rating": "Moderate Invest", "text": "Industrial site redevelopment and data center land preparation are generating Phase I/II and brownfield assessment activity, particularly in Georgia and Texas industrial corridors. Regulatory intensity is lower than the Northeast, but deal flow is steady and growing with reshoring tailwinds."}, "power": {"rating": "Strong Invest", "text": "Data center power demand in northern Virginia, Georgia, and Texas is driving utility transmission, substation, and interconnection engineering workloads at scale. Southeast utility capital investment programs are among the most active nationally with strong multi-year forward visibility and ERCOT grid expansion adding significant near-term volume."}, "stateDot": {"rating": "Moderate Invest", "text": "Florida, Texas, Georgia, and North Carolina DOTs are advancing active IIJA highway and bridge programs, generating NEPA, ecological, and wetland mitigation workloads. State budgets are generally healthy, reducing IIJA rescission exposure relative to other regions and providing better pipeline stability."}}, "watch_items": ["Florida insurance market instability and coastal climate risk are beginning to affect development confidence in some coastal corridors, potentially slowing permitting and site civil workloads in vulnerable Southeast Florida and Gulf Coast markets.", "Texas and Southeast grid reliability concerns following extreme weather events may accelerate utility hardening investment but also introduce regulatory and permitting complexity for transmission and substation projects, creating potential timeline risk on power engineering workloads."]}, "eng_pw": {"external_drivers": "The power engineering market is experiencing a structural demand surge driven by grid modernization, data center power infrastructure, renewable energy interconnection, and major transmission expansion programs. Enerdatics tracks 240+ GW of cumulative U.S. data center power demand, and PJM approved a $6.7B transmission backbone in February 2025 as a direct response to the Northern Virginia data center demand shock. SPP approved a separate $7.7B transmission expansion in October 2024. FERC Order 1920 long-range transmission planning requirements are generating new engineering study workloads at all major RTOs and ISOs, with planning horizons extending to 20–30 years at MISO, SPP, and CAISO.", "market_mix_analysis": ["Grid interconnection and transmission planning services represent the highest-growth segment, driven by record-high renewable energy and data center interconnection queues, FERC Order 1920 compliance requirements, and multi-billion-dollar backbone investments at PJM, MISO, SPP, WECC, ISO-NE, and NYISO.", "Data center power infrastructure — including substation design, protection and control engineering, and utility coordination — is a rapidly expanding service line as hyperscaler and co-location buildout accelerates; Texas, Georgia, northern Virginia, and the Pacific Northwest are the primary near-term growth corridors.", "Utility capital program engineering for transmission and distribution upgrades is sustaining long-duration contract opportunities as utilities invest to meet load growth projections not seen in two decades, with 765 kV backbone and HVDC corridor projects advancing from planning to engineering phases."], "investment_recs": ["Hire transmission planning engineers and power systems analysts with RTO/ISO experience — specifically PJM, MISO, and ERCOT — to capture FERC Order 1920 long-range planning contract opportunities and interconnection study work as the RTO planning cycle accelerates through 2026 and 2027.", "Build or acquire substation engineering capability — specifically protection and control (P&C) and civil/structural design — to serve the data center and utility capital program markets where design-build timelines are compressing and qualified firms are in acute short supply nationally.", "Develop a data center power delivery specialty practice targeting utility coordination, load interconnection feasibility studies, and power delivery infrastructure design for hyperscaler and co-location clients in Texas, Georgia, and the Mid-Atlantic, where near-term project pipelines are most concentrated."], "watch_items": ["Supply chain constraints for large power transformers and switchgear — with lead times extending to 2–4 years in some markets — may push engineering workloads further into 2027–2028, affecting near-term revenue recognition and project scheduling on large power infrastructure contracts.", "Potential executive order NEPA reform could reduce environmental study scope requirements for transmission projects, compressing billable hours per project even as project volume continues to grow strongly, creating a revenue mix shift toward lower-margin technical study work."]}, "eng_og": {"external_drivers": "Oil and gas engineering services demand is modestly positive but navigating cross-currents from commodity price volatility, EPA methane compliance requirements, and LNG export infrastructure expansion. WTI crude near $70–75/bbl provides adequate economics for existing production maintenance and compliance investment but limits aggressive new capital program commitments from E&P operators. EPA methane emissions regulations under 40 CFR Part 60 Subpart OOOOb effective 2025 are generating non-discretionary compliance engineering demand at upstream and midstream facilities. LNG export terminal development and pipeline permitting represent near-term growth opportunities on the Gulf Coast, with multiple projects in active permitting phases.", "market_mix_analysis": ["EPA methane emissions compliance under OOOOb is creating a non-discretionary, near-term engineering workload at upstream and midstream facilities — including monitoring system design, leak detection program development, and operational compliance support — regardless of commodity price cycles.", "LNG export terminal environmental permitting and pipeline corridor NEPA review represent concentrated but meaningful near-term opportunities as Gulf Coast export capacity expansion continues, with FERC and EPA review workloads sustaining billable hours through multi-year permitting processes.", "Produced water management and disposal well permitting are growing service lines as Permian Basin operators face increasing regulatory scrutiny on water handling, reuse, and induced seismicity management, generating recurring engineering demand tied to ongoing operations."], "investment_recs": ["Focus delivery capacity on methane compliance engineering and air permitting at operating oil and gas facilities, where EPA OOOOb creates a non-discretionary, near-term workload across the upstream and midstream sector that is relatively insulated from short-term commodity price fluctuations.", "Maintain LNG and pipeline NEPA capability to capture Gulf Coast export infrastructure permitting opportunities, while remaining nimble given project-by-project capital commitment timing variability and potential for permitting reform to alter review scope.", "Build produced water and environmental compliance expertise for Permian Basin operators, where water handling regulations and disposal well permitting are generating sustained engineering demand independent of oil price cycles and providing a durable recurring revenue base."], "watch_items": ["Sustained crude oil price weakness below $65/bbl would trigger meaningful E&P capital program deferral, reducing discretionary engineering workloads in upstream and midstream and shifting demand toward lower-margin compliance-only work with less revenue visibility.", "Federal permitting reform under executive orders may accelerate some project approvals while simultaneously reducing the scope and billability of NEPA review work on major oil and gas infrastructure projects, creating a revenue mix shift that compresses average project margins."]}, "nbe_ehs": {"external_drivers": "EHS compliance engineering demand is being sustained by EPA air quality rule implementation, PFAS-related industrial discharge requirements, and domestic manufacturing expansion driven by CHIPS Act and IRA. New facility startups in semiconductor, battery, and pharmaceutical manufacturing are generating multi-year EHS program development and permitting workloads across the Midwest and Southeast. Existing industrial operators face ongoing Title V air, NPDES stormwater, and chemical management compliance obligations that generate recurring engineering revenue. Near-term regulatory rollback risk at EPA may reduce compliance urgency at some federal-regulated facilities, but enforcement-driven work at state-regulated facilities — which represents the majority of EHS compliance activity — remains largely intact given state program delegation.", "market_mix_analysis": ["Industrial facility EHS compliance programs — including Title V air permits, NPDES stormwater, SPCC, and RCRA waste management — represent the core recurring revenue base, sustained by ongoing regulatory obligations at operating manufacturing and industrial plants with limited discretionary deferral.", "New manufacturing facility startups driven by CHIPS Act (semiconductor), IRA (EV batteries, solar), and pharmaceutical reshoring are generating multi-year EHS program development, initial permitting, and compliance management workloads at well-capitalized clients in the Midwest and Southeast.", "PFAS-related industrial discharge requirements and EPA effluent guideline revisions are expanding EHS compliance obligations at food processing, textile, and metal finishing facilities, creating new compliance engineering demand beyond the traditional industrial base."], "investment_recs": ["Hire EHS compliance engineers with Title V air permitting, NPDES stormwater, and RCRA compliance expertise to serve the growing new manufacturing facility startup market in Ohio, Michigan, Indiana, Georgia, and Arizona, where CHIPS Act and IRA facility buildout is generating multi-year program management opportunities.", "Develop a semiconductor and advanced manufacturing EHS specialty practice targeting the concentrated CHIPS Act facility buildout in Ohio, Arizona, and New York, where multi-year compliance program management contracts are available with well-capitalized clients and program complexity favors specialist firms.", "Build PFAS industrial discharge and effluent guideline compliance capability to address expanding regulatory obligations at food processing, textile, and industrial laundry facilities, where EPA rule implementation is creating new non-discretionary compliance engineering demand with recurring revenue characteristics."], "watch_items": ["EPA enforcement budget reductions and potential regulatory rollback at the federal level could reduce compliance urgency at some industrial operators, deferring non-mandatory EHS investments and moderating demand growth for facilities engineering services in the near term.", "CHIPS Act manufacturing facility delays or cancellations driven by demand uncertainty or tariff-driven cost increases could reduce the near-term new facility EHS program development pipeline in the Midwest and Southwest, creating variability in the manufacturing services outlook."]}, "nbe_flow": {"external_drivers": "Water and wastewater network modeling and hydraulic simulation demand is growing steadily, driven by municipal infrastructure reinvestment programs, PFAS treatment system optimization, and stormwater master planning tied to regulatory compliance and climate resilience. IIJA-SRF funded capital programs are generating hydraulic modeling and capacity analysis workloads at water utilities nationwide as they advance project pipelines for SRF loan applications and capital planning. Climate-driven extreme precipitation events are accelerating stormwater and flood resilience planning at municipal and transportation agency clients. Data center water use optimization represents an emerging service line as hyperscaler buildout creates water supply and sustainability reporting requirements in water-constrained markets.", "market_mix_analysis": ["Municipal water and wastewater hydraulic modeling for SRF capital program planning and funding applications is the highest-volume segment, with PFAS treatment system integration studies — including GAC, nanofiltration, and AOP process modeling — adding significant billable scope at utilities advancing compliance investments.", "Stormwater master planning and green infrastructure optimization studies are growing as municipalities respond to NPDES MS4 permit requirements and climate-driven flood risk, particularly in the Southeast and Midwest where development pressure and extreme weather events are generating the highest demand.", "Process flow simulation and optimization for water treatment plant upgrades — including PFAS treatment train design, membrane system performance modeling, and nutrient removal optimization — is a high-value service line as utilities advance complex capital programs requiring integrated hydraulic and process modeling."], "investment_recs": ["Invest in PFAS treatment system hydraulic and process modeling capability — including integration of advanced treatment processes (GAC, nanofiltration, AOP) into existing network models — to serve the large and growing PFAS compliance investment market at water utilities nationally.", "Build stormwater and green infrastructure modeling expertise using SWMM, HEC-RAS, and InfoSWMM to capture the growing MS4 compliance and climate resilience planning market at municipal clients, particularly in high-growth Southeast and Midwest markets where demand is most acute.", "Develop data center water use and cooling system optimization capability as a differentiated offering to hyperscaler and co-location clients facing water use restrictions, sustainability reporting requirements, and local utility coordination challenges in water-constrained Western and Southern markets."], "watch_items": ["Delays in municipal SRF funding application processing due to EPA staffing reductions could slow the hydraulic modeling and capital program planning workload pipeline in 2026, creating timing gaps in project authorization at some utilities.", "Commoditization of basic hydraulic modeling services by lower-cost competitors could compress margins on routine network modeling work, requiring differentiation through advanced simulation, optimization, and PFAS treatment integration capabilities to maintain premium billing rates."]}, "nbe_sf": {"external_drivers": "Superfund and RCRA remediation program coordination demand is being sustained by a large existing universe of sites requiring ongoing management, but faces meaningful headwinds from proposed EPA budget cuts and enforcement staffing reductions. EPA's NPL currently includes approximately 1,300 active sites with ongoing remediation work, and the RCRA corrective action universe includes approximately 3,700 facilities still requiring cleanup milestones. The FY2026 EPA budget proposes cutting Superfund program funding by $254M — confirmed in both the presidential budget request and the House appropriations bill — with EPA enforcement staffing targeted at the lowest levels since 1985. IIJA provided $3.5B for Superfund cleanup, sustaining near-term remediation program activity, but this funding is largely obligated through FY2026.", "market_mix_analysis": ["Superfund NPL site remediation coordination and project management represent the core workload, with IIJA Superfund funding sustaining remediation activity at priority sites even as EPA enforcement staffing contracts significantly under both the presidential budget request and the House appropriations proposal.", "RCRA corrective action program coordination at industrial and manufacturing facilities is a steady, recurring service line driven by the large universe of approximately 3,700 facilities still requiring cleanup milestones, with demand relatively insulated from EPA enforcement staffing levels given existing consent order obligations.", "Remediation technology optimization — including in-situ treatment design, long-term monitoring program management, and remedy performance assessment — represents a higher-value service line as sites advance toward active remediation phases and closure milestones."], "investment_recs": ["Maintain strong regulatory interface and project management capability for Superfund and RCRA programs, as the ability to navigate EPA decision-making delays and maintain milestone progress in a staffing-constrained regulatory environment is a key differentiator that clients with consent order obligations will pay for.", "Invest in remediation technology expertise — specifically ISCO, bioremediation, and thermal treatment — to capture remedy optimization and technology selection work at sites advancing toward active remediation phases, where value-added technical differentiation commands premium fees.", "Build stakeholder coordination and community engagement capability for Superfund sites in or near populated areas, as community relations and environmental justice requirements are increasing at NPL sites and creating additional billable scope beyond technical remediation work."], "watch_items": ["EPA Superfund program staffing reductions under both the presidential budget request and the House appropriations bill may slow ROD issuance and remedy selection milestones, delaying billable remediation program coordination work at key NPL sites and creating revenue timing uncertainty through 2026.", "IIJA Superfund funding ($3.5B) is largely obligated through FY2026; absence of a successor funding mechanism could create a meaningful program volume gap beginning in FY2027, requiring proactive client pipeline development in the private and state-funded remediation markets."]}, "nbe_aq": {"external_drivers": "Aquatic ecology and ecological engineering demand is being driven by transportation infrastructure mitigation requirements, renewable energy project wetland and stream impact permitting, and growing regulatory focus on compensatory mitigation quality and performance. IIJA highway and bridge projects are generating wetland delineation, stream mitigation design, and ecological study workloads at state DOTs nationally, with Midwest and Southeast DOTs among the highest-volume obligators. Offshore wind and transmission corridor projects require aquatic and terrestrial ecology assessments for NEPA review, creating a growing service line tied to power infrastructure development. Section 404/401 permitting and compensatory mitigation program requirements are sustaining wetland restoration design and mitigation banking demand across all regions.", "market_mix_analysis": ["Transportation project ecological services — wetland delineation, stream and wetland mitigation design, and ecological impact assessment — represent the highest-volume segment, sustained by IIJA highway and bridge program workloads at state DOTs in the Midwest, Southeast, and Northeast through at least FY2026.", "Renewable energy and transmission corridor ecology assessments — including threatened and endangered species surveys, aquatic ecology impact assessment, and wetland permitting — are a growing service line as the renewable energy permitting backlog builds nationally and FERC Order 1920 transmission planning generates new study requirements.", "Stream and wetland restoration design for compensatory mitigation and mitigation banking is a high-value service line as USACE and state regulators require higher-quality, performance-based mitigation for Section 404/401 permits on infrastructure and development projects, raising the technical bar and value per project."], "investment_recs": ["Grow wetland delineation and USACE Section 404 permitting capacity to serve the active IIJA transportation program market, where ecological study and mitigation design work is generating sustained state DOT contract opportunities in the Midwest, Southeast, and Northeast through at least FY2026.", "Build aquatic and terrestrial ecology assessment capability for renewable energy and transmission corridor projects — including T&E species surveys, biological assessments, and NEPA ecological chapter support — to capture the growing permitting backlog in the power and renewable energy markets.", "Invest in stream and wetland restoration design expertise to capture the growing compensatory mitigation and mitigation banking market, where performance-based USACE standards are raising the technical bar and rewarding firms with demonstrated restoration design and monitoring capability."], "watch_items": ["Section 404/401 regulatory rollback or Navigable Waters Protection Rule revisions under the current administration could reduce compensatory mitigation requirements, potentially reducing demand for wetland restoration design and mitigation banking services and creating regulatory uncertainty for project planning.", "IIJA reauthorization failure in September 2026 would reduce state DOT ecological study and wetland mitigation workloads beginning in FY2027, representing the primary downside risk to the transportation-driven segment of this practice and requiring proactive diversification into renewable energy and private sector ecology work."]}}};
+const DATA_UTE = {"last_updated": "2026-03-30", "months": ["2026-01", "2026-02", "2026-03"], "units": "percent", "goals": {"firmwide": 73.4, "northeast": 70.1, "west": 74.0, "midwest": 74.6, "southeast": 71.4, "eng_pw": 79.6, "eng_og": 76.3, "nbe_ehs": 73.5, "nbe_flow": 74.7, "nbe_sf": 66.9, "nbe_aq": 71.4}, "actuals": {"firmwide": [68.8, 67.5, 68.9], "northeast": [67.1, 64.4, 67.2], "west": [70.7, 70.4, 71.1], "midwest": [72, 70.4, 73.6], "southeast": [69, 62.6, 61.6], "eng_pw": [70.3, 76.2, 77.7], "eng_og": [77.5, 81, 66.9], "nbe_ehs": [64.5, 67.9, 65.4], "nbe_flow": [71, 69.5, 72.3], "nbe_sf": [71, 69.5, 72.3], "nbe_aq": [75, 70.3, 69.4]}};
+const DATA_INFL = {"last_updated": "2026-03-30", "ppi": {"label": "PPI: Engineering Services (PCU541330541330)", "quarters": ["Q1'23", "Q2'23", "Q3'23", "Q4'23", "Q1'24", "Q2'24", "Q3'24", "Q4'24", "Q1'25", "Q2'25", "Q3'25", "Q4'25"], "index": [199.1, 200.4, 201.3, 202.8, 203.1, 204.7, 205.6, 206.6, 204.5, 205.7, 206.2, 207.4]}, "eci": {"label": "ECI: Wages & Salaries — Prof/Sci/Tech Services (CIS2025400000000I)", "quarters": ["Q1'23", "Q2'23", "Q3'23", "Q4'23", "Q1'24", "Q2'24", "Q3'24", "Q4'24", "Q1'25", "Q2'25", "Q3'25", "Q4'25"], "index": [159.7, 161.0, 162.5, 163.9, 165.9, 167.4, 167.5, 169.8, 171.3, 172.8, 174.1, 175.4]}};
+
+// ===== APPLICATION LOGIC =====
+// Verdantas Market Tool v6 — RESTORED FULL UI (stable)
+// - Restores prior formatting (matches index.html structure)
+// - Fixes all syntax issues
+// - B2B calibration computed ONCE at init and then locked
+// - Claude remains EXTERNAL ONLY
+
+let CFG=null, TUNE=null, EXT=null, UTE=null;
+
+let STATE={
+  neutral:1.07,
+  cal:{slope:0, intercept:0, ready:false},
+  inflationYoy:0,
+  markets:{},
+  b2bMonths:[],
+  b2bValues:[],
+  plSeries:{},
+  geoMix:{},
+  // inflation series
+  ppiQuarters:[], ppiIndex:[], eciQuarters:[], eciIndex:[],
+  ppiYoY:0, eciYoY:0, spread:0
+};
+
+function $(id){ return document.getElementById(id); }
+function clamp(v,lo,hi){ return Math.max(lo, Math.min(hi, v)); }
+function fmtP(v){ if(!Number.isFinite(v)) return '—'; return (v>=0?'+':'')+v.toFixed(1)+'%'; }
+function cleanArr(a){ return (Array.isArray(a)?a:[]).filter(v=>v!==null && v!==undefined && Number.isFinite(v)); }
+
+function consBlendV(){ return parseInt($('consBlendSlider').value,10)/100; }
+function plBlendV(){ return parseInt($('plBlendSlider').value,10)/100; }
+
+function fetchJson(){ return null; } // replaced by inline data
+
+// -------- Calibration (ONCE) --------
+function rollAvg(values, endIdx, windowN){
+  const start=Math.max(0, endIdx-(windowN-1));
+  let s=0,c=0;
+  for(let i=start;i<=endIdx;i++){
+    const v=values[i];
+    if(Number.isFinite(v)){ s+=v; c++; }
+  }
+  return c ? (s/c) : STATE.neutral;
+}
+
+function roll6Firm(idx){ return rollAvg(STATE.b2bValues, idx, 6); }
+
+function calibrateOnce(){
+  if(STATE.cal.ready) return;
+  const cal = (CFG && CFG.calibration) ? CFG.calibration : null;
+  if(!cal || !cal.targets) {
+    STATE.cal.slope = 50;
+    STATE.cal.intercept = -50*STATE.neutral;
+    STATE.cal.ready = true;
+    return;
+  }
+  const lag = cal.lag_months || 6;
+  const months = STATE.b2bMonths;
+  const vals = STATE.b2bValues;
+  const idx = new Map(months.map((m,i)=>[m,i]));
+
+  function avgLagged(targetMonths){
+    const xs=[];
+    (targetMonths||[]).forEach(m=>{
+      const i = idx.get(m);
+      if(i===undefined) return;
+      const j = i - lag;
+      if(j < 0 || j >= vals.length) return;
+      xs.push(roll6Firm(j));
+    });
+    if(!xs.length) return null;
+    return xs.reduce((a,b)=>a+b,0)/xs.length;
+  }
+
+  const x0 = avgLagged(cal.targets.flat.months);
+  const x1 = avgLagged(cal.targets.growth.months);
+  const y0 = cal.targets.flat.growth;
+  const y1 = cal.targets.growth.growth;
+
+  if(x0===null || x1===null || Math.abs(x1-x0) < 1e-9){
+    STATE.cal.slope = 50;
+    STATE.cal.intercept = -50*STATE.neutral;
+  } else {
+    STATE.cal.slope = (y1-y0)/(x1-x0);
+    STATE.cal.intercept = y0 - STATE.cal.slope*x0;
+  }
+  STATE.cal.ready = true;
+}
+
+function internalGrowthFromB2B(b2b){
+  if(!STATE.cal.ready) return 0;
+  return STATE.cal.intercept + STATE.cal.slope*b2b;
+}
+
+// Trend adjustment uses slope of rolling-6 B2B over recent window (does NOT recalibrate main slope)
+function trendAdjUpTo(endIdx){
+  const win = (CFG && CFG.calibration && CFG.calibration.slope_window_months) ? CFG.calibration.slope_window_months : 6;
+  const cap = (CFG && CFG.calibration && CFG.calibration.slope_cap_pct) ? CFG.calibration.slope_cap_pct : 2.0;
+  const start = Math.max(0, endIdx-(win-1));
+  const ys=[];
+  for(let i=start;i<=endIdx;i++) ys.push(roll6Firm(i));
+  if(ys.length < 2) return 0;
+  const m=ys.length;
+  let sx=0,sy=0,sxy=0,sx2=0;
+  for(let i=0;i<m;i++){ sx+=i; sy+=ys[i]; sxy+=i*ys[i]; sx2+=i*i; }
+  const denom = m*sx2 - sx*sx;
+  if(Math.abs(denom) < 1e-9) return 0;
+  const slope = (m*sxy - sx*sy)/denom; // B2B ratio/month
+  let adj = (slope/STATE.neutral)*100*6;
+  adj = clamp(adj, -cap, cap);
+  return adj;
+}
+
+// -------- External weighted growth --------
+function weightedExternalGrowth(){
+  let g=0;
+  (CFG.market.keys||[]).forEach(k=>{
+    const eg = (STATE.markets[k] && Number.isFinite(STATE.markets[k].extGrowth)) ? STATE.markets[k].extGrowth : 0;
+    const w = (CFG.weights && Number.isFinite(CFG.weights[k])) ? CFG.weights[k] : 0;
+    g += eg*w;
+  });
+  return g;
+}
+
+// -------- UTE --------
+function uteStats(key){
+  if(!UTE || !UTE.actuals || !UTE.goals) return {avg:null, goal:null, delta:0};
+  const arr = UTE.actuals[key];
+  const goal = UTE.goals[key];
+  if(!Array.isArray(arr) || !Number.isFinite(goal)) return {avg:null, goal:Number.isFinite(goal)?goal:null, delta:0};
+  const w = (CFG.ute && Number.isFinite(CFG.ute.window_months)) ? CFG.ute.window_months : 3;
+  const slice = arr.slice(Math.max(0, arr.length-w)).filter(v=>Number.isFinite(v));
+  if(!slice.length) return {avg:null, goal, delta:0};
+  const avg = slice.reduce((a,b)=>a+b,0)/slice.length;
+  return {avg, goal, delta: avg-goal};
+}
+
+function hrec(x){
+  if(x>5) return {t:'>>> Aggressively Hire', c:'hr-agh'};
+  if(x>1) return {t:'+ Hire', c:'hr-h'};
+  if(x>=-1) return {t:'= Steady', c:'hr-s'};
+  if(x>=-3) return {t:'! Reduce', c:'hr-r'};
+  return {t:'<<< Aggressively Reduce', c:'hr-agr'};
+}
+
+// -------- Charts (with hover tooltip) --------
+function sizedCanvas(cv, heightCss){
+  const dpr = window.devicePixelRatio || 1;
+  const w = (cv.offsetWidth || (cv.parentElement?cv.parentElement.offsetWidth:900) || 900);
+  cv.width = Math.round(w*dpr);
+  cv.height = Math.round(heightCss*dpr);
+  return {dpr};
+}
+
+function drawDualAxisChart(cv, labels, leftSeries, rightSeries, rightFmt){
+  if(!cv) return;
+  const {dpr}=sizedCanvas(cv, 220);
+  const ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const pL=58*dpr,pR=58*dpr,pT=22*dpr,pB=54*dpr;
+  const pw=cv.width-pL-pR, ph=cv.height-pT-pB;
+  const n=labels.length;
+  if(n<2||pw<=0||ph<=0) return;
+
+  const L=leftSeries.data.map(v=>Number.isFinite(v)?v:null);
+  const R=rightSeries.data.map(v=>Number.isFinite(v)?v:null);
+  const Lc=L.filter(v=>v!==null), Rc=R.filter(v=>v!==null);
+  if(!Lc.length||!Rc.length) return;
+  let lmin=Math.min(...Lc), lmax=Math.max(...Lc);
+  let rmin=Math.min(...Rc), rmax=Math.max(...Rc);
+  if(lmin===lmax){lmin-=1;lmax+=1;}
+  if(rmin===rmax){rmin-=0.05;rmax+=0.05;}
+
+  ctx.strokeStyle='rgba(45,51,82,1)';
+  ctx.lineWidth=1*dpr;
+  const gN=4;
+  for(let i=0;i<=gN;i++){
+    const y=pT+ph*(i/gN);
+    ctx.beginPath(); ctx.moveTo(pL,y); ctx.lineTo(pL+pw,y); ctx.stroke();
+  }
+
+  ctx.font=(11*dpr)+'px Segoe UI';
+  ctx.textAlign='right'; ctx.fillStyle=leftSeries.color;
+  for(let i=0;i<=gN;i++){
+    const y=pT+ph*(i/gN);
+    const val=lmax-(lmax-lmin)*(i/gN);
+    ctx.fillText(val.toFixed(1)+'%', pL-5*dpr, y+4*dpr);
+  }
+  ctx.textAlign='left'; ctx.fillStyle=rightSeries.color;
+  for(let i=0;i<=gN;i++){
+    const y=pT+ph*(i/gN);
+    const val=rmax-(rmax-rmin)*(i/gN);
+    const txt = (rightFmt==='ratio') ? val.toFixed(3) : val.toFixed(1)+'%';
+    ctx.fillText(txt, pL+pw+5*dpr, y+4*dpr);
+  }
+
+  ctx.fillStyle='rgba(100,116,139,1)';
+  ctx.font=(9*dpr)+'px Segoe UI';
+  ctx.textAlign='center';
+  const step=Math.max(1, Math.floor(n/8));
+  for(let i=0;i<n;i+=step){
+    const x=pL+pw*(i/(n-1));
+    ctx.fillText(labels[i], x, pT+ph+18*dpr);
+  }
+
+  const yLeft=v=>pT+(lmax-v)/(lmax-lmin)*ph;
+  const yRight=v=>pT+(rmax-v)/(rmax-rmin)*ph;
+
+  function drawLine(series, yMap){
+    ctx.strokeStyle=series.color;
+    ctx.lineWidth=2*dpr;
+    ctx.beginPath();
+    let started=false;
+    for(let i=0;i<n;i++){
+      const v=series.data[i];
+      if(!Number.isFinite(v)) continue;
+      const x=pL+pw*(i/(n-1));
+      const y=yMap(v);
+      if(!started){ctx.moveTo(x,y); started=true;} else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+
+  drawLine(leftSeries, yLeft);
+  drawLine(rightSeries, yRight);
+
+  cv._chartMeta={labels,leftSeries,rightSeries,n,rightFmt};
+}
+
+function attachTooltip(cv){
+  if(!cv) return;
+  cv.addEventListener('mousemove',(ev)=>{
+    const meta=cv._chartMeta;
+    const tip=$('chartTip');
+    if(!meta || !tip) return;
+    const rect=cv.getBoundingClientRect();
+    const frac=clamp((ev.clientX-rect.left)/rect.width,0,1);
+    const i=Math.round(frac*(meta.n-1));
+    $('ctMonth').textContent=meta.labels[i]||'';
+    const l=meta.leftSeries.data[i];
+    const r=meta.rightSeries.data[i];
+    const rows=[
+      {k:meta.leftSeries.label, v:Number.isFinite(l)?(l.toFixed(1)+'%'):'—', c:meta.leftSeries.color},
+      {k:meta.rightSeries.label, v:(meta.rightFmt==='ratio')?(Number.isFinite(r)?r.toFixed(3):'—'):(Number.isFinite(r)?(r.toFixed(1)+'%'):'—'), c:meta.rightSeries.color}
+    ];
+    $('ctRows').innerHTML = rows.map(x=>
+      `<div class="ct-row"><div class="ct-k"><span class="ct-sw" style="background:${x.c}"></span>${x.k}</div><div class="ct-v">${x.v}</div></div>`
+    ).join('');
+
+    tip.style.display='block';
+    tip.style.left=(ev.clientX+14)+'px';
+    tip.style.top=(ev.clientY+14)+'px';
+  });
+  cv.addEventListener('mouseleave',()=>{ const tip=$('chartTip'); if(tip) tip.style.display='none'; });
+}
+
+// -------- Rendering --------
+function renderConsolidated(){
+  const wI=consBlendV(), wE=1-wI;
+  const last=STATE.b2bValues.length-1;
+  const b2bRoll=roll6Firm(last);
+  const trend=trendAdjUpTo(last);
+  const intG=internalGrowthFromB2B(b2bRoll) + trend;
+  const extG=weightedExternalGrowth();
+  const raw=wI*intG+wE*extG;
+  const adj=raw-STATE.inflationYoy;
+
+  const kpis=[
+    {l:'Weighted Ext Growth', v:fmtP(extG), c:(extG>=0?'pos':'neg2')},
+    {l:'Internal Signal', v:fmtP(intG), c:(intG>=0?'pos':'neg2')},
+    {l:'6-Mo Rolling B2B Avg', v:Number.isFinite(b2bRoll)?b2bRoll.toFixed(3):'—', c:''},
+    {l:'Consolidated Prediction', v:fmtP(raw), c:(raw>=0?'pos':'neg2')},
+    {l:'PPI-Adj (Eng Svcs)', v:fmtP(adj), c:(adj>=0?'pos':'neg2')}
+  ];
+  var uteF=uteStats('firmwide');
+  var uteKbox='';
+  if(uteF.avg!=null && uteF.goal!=null){
+    var uteFAvg=uteF.avg.toFixed(1)+'%';
+    var uteFGoal=uteF.goal.toFixed(1)+'%';
+    var uteFDel=(uteF.delta>=0?'+':'')+uteF.delta.toFixed(1)+'%';
+    var hrF=hrec(adj + uteF.delta);
+    uteKbox='<div class="kbox"><div class="klbl">UTE (Avg / Goal / Δ)</div><div class="kval">'+uteFAvg+' / '+uteFGoal+'</div><div style="font-size:.75rem;color:var(--muted);margin-top:3px;">Δ '+uteFDel+'</div></div>'+'<div class="kbox"><div class="klbl">Hiring Rec</div><div class="kval"><span class="hrec '+hrF.c+'">'+hrF.t+'</span></div></div>';
+  }
+  $('consKPIs').innerHTML = kpis.map(k=>`<div class="kbox"><div class="klbl">${k.l}</div><div class="kval ${k.c}">${k.v}</div></div>`).join('') + uteKbox;
+
+  const pills=(CFG.market.keys||[]).map(k=>{
+    const eg=STATE.markets[k]?.extGrowth??0;
+    const wt=CFG.market.weight_labels?.[k]??'';
+    const ec=(eg>4?'pos':(eg<0?'neg2':'neu'));
+    return `<span class="mwt-pill"><span class="mwt-lbl">${CFG.market.short?.[k]||k}</span><span class="wt-pill">${wt}</span><span class="mwt-eg ${ec}">${fmtP(eg)}</span></span>`;
+  });
+  $('mwtBar').innerHTML = pills.join('');
+
+  const histPred=STATE.b2bValues.map((_,i)=>{
+    const r=roll6Firm(i);
+    const t=trendAdjUpTo(i);
+    return internalGrowthFromB2B(r)+t;
+  });
+  const histRoll=STATE.b2bValues.map((_,i)=>roll6Firm(i));
+  drawDualAxisChart($('histChart'), STATE.b2bMonths,
+    {label:'Internal Growth Signal %', data:histPred, color:'#4f9cf9'},
+    {label:'B2B Rolling 6-Mo Avg', data:histRoll, color:'#22c55e'},
+    'ratio'
+  );
+
+  const ext=EXT?.consolidated||{};
+  const tail=Array.isArray(ext.tailwinds)?ext.tailwinds:[];
+  const head=Array.isArray(ext.headwinds)?ext.headwinds:[];
+  const watch=Array.isArray(ext.watch_items)?ext.watch_items:[];
+  const bullets=a=>a.map(x=>'• '+x).join('\n');
+  let consHtml = '';
+  consHtml += '<div class="narr-body" style="margin:0 0 8px"><strong style="color:var(--text)">Internal outlook:</strong> Rolling 6-mo B2B ' + b2bRoll.toFixed(3) + '; calibrated signal ' + fmtP(intG) + ' (trend adj ' + fmtP(trend) + ').</div>';
+  consHtml += '<div class="narr-body" style="margin:0 0 8px"><strong style="color:var(--text)">External outlook:</strong> ' + (ext.summary||'') + '</div>';
+  consHtml += '<div class="narr-body" style="margin:0 0 8px"><strong style="color:var(--text)">Forecast blend:</strong> Internal ' + fmtP(intG) + ' | External ' + fmtP(extG) + ' | Blended ' + fmtP(raw) + ' | PPI-adjusted ' + fmtP(adj) + ' &mdash; <strong>Confidence:</strong> ' + (ext.confidence||'N/A') + '</div>';
+  if(tail.length){consHtml+='<div class="narr-body" style="margin:6px 0 2px"><strong style="color:var(--text)">Tailwinds:</strong></div><ul style="font-size:.77rem;color:var(--muted);line-height:1.7;padding-left:18px;margin-bottom:6px">';tail.forEach(function(x){consHtml+='<li>'+x+'</li>';});consHtml+='</ul>';}
+  if(head.length){consHtml+='<div class="narr-body" style="margin:6px 0 2px"><strong style="color:var(--text)">Headwinds:</strong></div><ul style="font-size:.77rem;color:var(--muted);line-height:1.7;padding-left:18px;margin-bottom:6px">';head.forEach(function(x){consHtml+='<li>'+x+'</li>';});consHtml+='</ul>';}
+  if(watch.length){consHtml+='<div class="narr-body" style="margin:6px 0 2px"><strong style="color:var(--text)">Watch Items:</strong></div><ul style="font-size:.77rem;color:var(--muted);line-height:1.7;padding-left:18px;margin-bottom:6px">';watch.forEach(function(x){consHtml+='<li>'+x+'</li>';});consHtml+='</ul>';}
+  $('consNarrBody').innerHTML = consHtml;
+
+  renderConsUte();
+}
+
+function renderConsUte(){ /* UTE now rendered inline in consKPIs row */ }
+
+function renderMarkets(){
+  const grid=$('marketGrid');
+  grid.innerHTML='';
+  (CFG.market.keys||[]).forEach(k=>{
+    const m=STATE.markets[k];
+    if(!m) return;
+    const kpis=Array.isArray(m.kpis)?m.kpis:[];
+    const kpiHtml = kpis.map(kp=>`<li><span class="dot ${kp.dot||'n'}"></span><span>${kp.text||''}</span></li>`).join('');
+    const card=document.createElement('div');
+    card.className='mcard';
+    card.innerHTML = `
+      <div class="mchdr">
+        <div class="mcname">${CFG.market.names[k]||k}</div>
+        <div class="badge ${m.statusClass||'badge-neutral'}">${m.status||''}</div>
+      </div>
+      <div class="mgrowth" style="color:var(--accent)">${fmtP(m.extGrowth)}</div>
+      <ul class="kpi-list">${kpiHtml}</ul>
+      <div class="snote"><strong>Tailwind:</strong> ${m.tailwind||''}</div>
+      <div class="snote"><strong>Headwind:</strong> ${m.headwind||''}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function renderGeoSliders(){
+  const g=$('geoGrid');
+  g.innerHTML='';
+  (CFG.geo.keys||[]).forEach(gk=>{
+    const pl = (CFG.pl.list||[]).find(p=>p.key===gk);
+    const card=document.createElement('div');
+    card.className='geo-card';
+    const rows=(CFG.geo.mix_labels||[]).map((lbl,i)=>{
+      const sid=`gmix_${gk}_${i}`;
+      const v=(STATE.geoMix[gk]&&Number.isFinite(STATE.geoMix[gk][i]))?STATE.geoMix[gk][i]:0;
+      return `<div class="mix-row"><label>${lbl}</label><input type="range" id="${sid}" min="0" max="100" value="${v}" oninput="onMix('${gk}',${i},this.value)" /><div class="mval" id="${sid}v">${v}%</div></div>`;
+    }).join('');
+    card.innerHTML = `<h3>${pl?pl.label:gk}</h3>${rows}<div class="msum" id="gmix_${gk}_sum"></div>`;
+    g.appendChild(card);
+    updateGeoSum(gk);
+  });
+}
+
+function updateGeoSum(gk){
+  const sum=(STATE.geoMix[gk]||[]).reduce((a,b)=>a+(b||0),0);
+  const el=$(`gmix_${gk}_sum`);
+  if(!el) return;
+  el.textContent = `Total: ${sum}%`;
+  el.style.background = (sum===100)?'#0d2e1a':'#2e2010';
+  el.style.color = (sum===100)?'#22c55e':'#fb923c';
+}
+
+function onMix(gk,i,val){
+  const nv=parseInt(val,10);
+  if(!STATE.geoMix[gk]) return;
+  const cur=STATE.geoMix[gk][i]||0;
+  const delta=nv-cur;
+  if(delta===0) return;
+  STATE.geoMix[gk][i]=nv;
+
+  const others=STATE.geoMix[gk].map((v,idx)=>({idx,v})).filter(o=>o.idx!==i);
+  const ot=others.reduce((s,o)=>s+(o.v||0),0);
+  if(ot>0){
+    others.forEach(o=>{
+      const adj=Math.round(delta*((o.v||0)/ot));
+      STATE.geoMix[gk][o.idx]=Math.max(0,(STATE.geoMix[gk][o.idx]||0)-adj);
+    });
+  }
+
+  let diff=100-STATE.geoMix[gk].reduce((s,v)=>s+(v||0),0);
+  if(diff!==0){
+    const cands=STATE.geoMix[gk].map((v,idx)=>({idx,v})).filter(o=>o.idx!==i).sort((a,b)=>(b.v||0)-(a.v||0));
+    if(cands.length) STATE.geoMix[gk][cands[0].idx]=clamp((STATE.geoMix[gk][cands[0].idx]||0)+diff,0,100);
+  }
+
+  (CFG.geo.mix_labels||[]).forEach((_,idx)=>{
+    const el=$(`gmix_${gk}_${idx}`);
+    const elv=$(`gmix_${gk}_${idx}v`);
+    const v=STATE.geoMix[gk][idx]||0;
+    if(el) el.value=v;
+    if(elv) elv.textContent=v+'%';
+  });
+  updateGeoSum(gk);
+  renderPL();
+  renderNarr();
+}
+window.onMix=onMix;
+
+function seriesAvg(arr,n){
+  const c=cleanArr(arr); if(!c.length) return null;
+  const t=c.slice(Math.max(0,c.length-n));
+  return t.reduce((a,b)=>a+b,0)/t.length;
+}
+
+function plB2BValue(pl){
+  const arr=STATE.plSeries[pl.series_key];
+  const c=cleanArr(arr);
+  if(!c.length) return STATE.neutral;
+  const n=(c.length>=6)?6:Math.min(3,c.length);
+  const avg=seriesAvg(c,n);
+  return (avg==null)?STATE.neutral:avg;
+}
+
+function plModeLabel(pl){
+  const arr=STATE.plSeries[pl.series_key];
+  const c=cleanArr(arr);
+  return (c.length>=6)?'6-mo rolling':'3-mo avg';
+}
+
+function extForPL(pl){
+  if(pl.type==='geo'){
+    const mix=STATE.geoMix[pl.key]||[0,0,0,0,0];
+    let g=0;
+    (CFG.geo.mix_markets||[]).forEach((mk,i)=>{
+      const eg=(STATE.markets[mk]?.extGrowth??0);
+      g += eg*((mix[i]||0)/100);
+    });
+    return g;
+  }
+  let g=0;
+  (pl.extKeys||[]).forEach((k,i)=>{
+    const eg=(STATE.markets[k]?.extGrowth??0);
+    const w=(pl.extWts && Number.isFinite(pl.extWts[i]))?pl.extWts[i]:0;
+    g += eg*w;
+  });
+  return g;
+}
+
+function renderPL(){
+  const wI=plBlendV(), wE=1-wI;
+  let html='';
+  let lastType='';
+  (CFG.pl.list||[]).forEach(pl=>{
+    if(pl.type!==lastType){
+      const grp = pl.type==='geo'?'GEOGRAPHIC P&Ls':(pl.type==='energy'?'ENERGY P&Ls':'NATURAL & BUILT ENVIRONMENT P&Ls');
+      html += `<tr class="grp-row"><td colspan="8">${grp}</td></tr>`;
+      lastType=pl.type;
+    }
+    const b2b=plB2BValue(pl);
+    const intG=internalGrowthFromB2B(b2b);
+    const extG=extForPL(pl);
+    const raw=wI*intG+wE*extG;
+    const adj=raw-STATE.inflationYoy;
+    const us=uteStats(pl.key);
+    const uteAvg=(us&&us.avg!=null)?us.avg.toFixed(1)+'%':'—';
+    const uteGoal=(us&&us.goal!=null)?us.goal.toFixed(1)+'%':'—';
+    const uteDel=(us&&us.avg!=null&&us.goal!=null)?((us.delta>=0?'+':'')+us.delta.toFixed(1)+'%'):'—';
+    const driver = adj + ((us&&us.delta!=null)?us.delta:0);
+    const hr=hrec(driver);
+
+    html += `<tr>
+      <td>${pl.label}</td>
+      <td>${b2b.toFixed(3)}<div style="font-size:.68rem;color:var(--muted);margin-top:2px;">${plModeLabel(pl)}</div></td>
+      <td>${fmtP(intG)}</td>
+      <td>${fmtP(extG)}</td>
+      <td>${fmtP(raw)}</td>
+      <td>${fmtP(adj)}</td>
+      <td>${uteAvg} / ${uteGoal}<div style="font-size:.68rem;color:var(--muted);margin-top:2px;">Δ ${uteDel}</div></td>
+      <td><span class="hrec ${hr.c}">${hr.t}</span></td>
+    </tr>`;
+  });
+  $('plBody').innerHTML=html;
+  $('plFootnote').textContent = '† Hiring recommendation uses: (PPI-adjusted growth) + (UTE Δ). UTE Δ = 3-mo avg utilization − goal (percentage points).';
+}
+
+function renderNarr(){
+  const pn = EXT && EXT.pl_narratives ? EXT.pl_narratives : {};
+  let html='';
+  (CFG.pl.list||[]).forEach(pl=>{
+    const d = pn[pl.key] || {};
+    const extDrivers = d.external_drivers || '';
+    const infl = Array.isArray(d.influencers) ? d.influencers : [];
+    const mmix = Array.isArray(d.market_mix_analysis) ? d.market_mix_analysis : [];
+    const watch = Array.isArray(d.watch_items) ? d.watch_items : [];
+    const recs = d.investment_recs || null;
+
+    const bullet = arr => arr.map(x=>`• ${x}`).join('\n');
+
+    let recHtml='';
+    const rcClass = r => (r==='Strong Invest')?'ic-strong':(r==='Moderate Invest')?'ic-mod':(r==='Light')?'ic-light':'ic-avoid';
+    if(recs && typeof recs==='object' && !Array.isArray(recs)){
+      const cards = Object.keys(recs).map(cat=>{
+        const rec = recs[cat];
+        const rating = (typeof rec==='string')?rec:(rec.rating||'');
+        const body = (typeof rec==='string')?'':(rec.text||rec.body||'');
+        return `<div class="invest-card"><div class="ic-cat">${cat}</div><div class="ic-rec ${rcClass(rating)}">${rating}</div><div class="ic-body">${body}</div></div>`;
+      }).join('');
+      recHtml = `<div class="narr-item"><h3>Investment Recommendations</h3><div class="invest-grid">${cards}</div></div>`;
+    } else if(Array.isArray(recs) && recs.length){
+      var PRAC_LABELS={
+        'nbe_ehs':['EHS Compliance Hiring','Advanced Manufacturing EHS','PFAS Industrial Discharge'],
+        'nbe_flow':['PFAS Treatment Modeling','Stormwater & Green Infra','Data Center Water Optimization'],
+        'nbe_sf':['Regulatory Interface','Remediation Technology','Stakeholder Coordination'],
+        'nbe_aq':['Transportation Ecology','Renewable Energy Ecology','Stream & Wetland Restoration'],
+        'eng_pw':['Transmission Planning','Substation Engineering','Data Center Power Delivery'],
+        'eng_og':['Methane Compliance','LNG & Pipeline Permitting','Produced Water Management']
+      };
+      var plCats=PRAC_LABELS[pl.key]||[];
+      var recCards=[];
+      recs.forEach(function(txt,ri){
+        var cat=plCats[ri]||('Action '+(ri+1));
+        recCards.push('<div class="invest-card"><div class="ic-cat">'+cat+'</div><div class="ic-rec ic-mod">Invest</div><div class="ic-body">'+txt+'</div></div>');
+      });
+      recHtml='<div class="narr-item"><h3>Investment Recommendations</h3><div class="invest-grid">'+recCards.join('')+'</div></div>';
+    }
+
+    html += `<div class="narr-item"><h3>${pl.label}</h3>
+      ${extDrivers?`<div class="narr-body"><strong>External Growth Drivers:</strong> ${extDrivers}</div>`:''}
+      ${infl.length?`<div class="narr-body" style="white-space:pre-line;"><strong>Influencers:</strong>\n${bullet(infl)}</div>`:''}
+      ${mmix.length?`<div class="narr-body" style="white-space:pre-line;"><strong>Market Mix Analysis:</strong>\n${bullet(mmix)}</div>`:''}
+      ${watch.length?`<div class="narr-body" style="white-space:pre-line;"><strong>Watch Items:</strong>\n${bullet(watch)}</div>`:''}
+      ${recHtml}
+    </div>`;
+  });
+  $('narrBody').innerHTML=html;
+}
+
+function renderInflation(inflData){
+  const infl = inflData || {};
+  const ppi = infl.ppi || {}; const eci = infl.eci || {};
+  STATE.ppiQuarters = Array.isArray(ppi.quarters)?ppi.quarters:[];
+  STATE.ppiIndex = Array.isArray(ppi.index)?ppi.index:[];
+  STATE.eciQuarters = Array.isArray(eci.quarters)?eci.quarters:[];
+  STATE.eciIndex = Array.isArray(eci.index)?eci.index:[];
+
+  const minLen = Math.min(STATE.ppiIndex.length, STATE.eciIndex.length, STATE.ppiQuarters.length, STATE.eciQuarters.length);
+  const labels=[], pYoY=[], eYoY=[];
+  for(let i=4;i<minLen;i++){
+    labels.push(STATE.ppiQuarters[i]);
+    pYoY.push(((STATE.ppiIndex[i]/STATE.ppiIndex[i-4])-1)*100);
+    eYoY.push(((STATE.eciIndex[i]/STATE.eciIndex[i-4])-1)*100);
+  }
+
+  STATE.ppiYoY = (STATE.ppiIndex.length>=5) ? ((STATE.ppiIndex.at(-1)/STATE.ppiIndex.at(-5)-1)*100) : 0;
+  STATE.eciYoY = (STATE.eciIndex.length>=5) ? ((STATE.eciIndex.at(-1)/STATE.eciIndex.at(-5)-1)*100) : 0;
+  STATE.spread = STATE.ppiYoY - STATE.eciYoY;
+  STATE.inflationYoy = STATE.ppiYoY;
+
+
+  drawDualAxisChart($('ppiChart'), labels,
+    {label:'PPI YoY% (Eng Svcs)', data:pYoY, color:'#4f9cf9'},
+    {label:'ECI YoY% (Prof/Tech)', data:eYoY, color:'#f97316'},
+    'pct'
+  );
+
+  const p=STATE.ppiYoY, e=STATE.eciYoY, s=STATE.spread;
+  const billTxt = (p>3.5)?'PPI running strongly — raise billing rates 3–5% and add escalation clauses in new contracts.'
+                :(p>2.0)?'Moderate PPI — a 2–3% rate increase is warranted; review schedules at next renewal.'
+                :(p>0.5)?'Mild PPI pressure — standard annual rate increases are supportable.'
+                :'Flat PPI — hold rates steady; aggressive increases risk losing competitive bids.';
+  const salTxt = (e>4.5)?'Wage growth elevated — merit budgets need significant increase (4–5%+) to retain staff.'
+               :(e>3.5)?'Above-trend ECI — plan merit budgets above standard 3% guidance (3.5–4.5%).'
+               :(e>2.5)?'Moderate ECI — standard ~3% merit increases appropriate.'
+               :'Subdued ECI — standard merit budgets sufficient; selective retention bonuses for scarce roles.';
+  const spTxt = (s>1.0)?'Positive spread: billing rates outpacing labor costs — margin expansion opportunity; protect in renewals.'
+              :(s>-0.5)?'Narrow spread — billing rates tracking wage growth; margins stable but watch closely.'
+              :'Negative spread: labor costs outpacing billed rates — margin compression risk; prioritize rate escalation.';
+
+  $('inflRecs').innerHTML = `<div class="infl-recs">
+    <div class="infl-rec-card"><div class="infl-rec-lbl">PPI YoY</div><div class="infl-rec-val">${fmtP(p)}</div><div class="infl-rec-txt"><strong>Billing Rate Action:</strong> ${billTxt}</div></div>
+    <div class="infl-rec-card"><div class="infl-rec-lbl">ECI YoY</div><div class="infl-rec-val">${fmtP(e)}</div><div class="infl-rec-txt"><strong>Salary Action:</strong> ${salTxt}</div></div>
+    <div class="infl-rec-card"><div class="infl-rec-lbl">Spread</div><div class="infl-rec-val">${fmtP(s)}</div><div class="infl-rec-txt"><strong>Margin Signal:</strong> ${spTxt}</div></div>
+  </div>`;
+}
+
+function renderValueDrivers(){
+  const el=$('valueDriverGrid');
+  if(!el) return;
+  const drivers = (EXT && Array.isArray(EXT.value_drivers)) ? EXT.value_drivers : [];
+  if(!drivers.length){ el.innerHTML='<div class="mcard">No value drivers in external_market_data.json.</div>'; return; }
+  el.innerHTML = drivers.map(d=>{
+    const tags=Array.isArray(d.tags)?d.tags:[];
+    return `<div class="mcard"><div class="mchdr"><div class="mcname">#${d.rank||''} ${d.title||''}</div><div class="badge badge-neutral">Value</div></div><div class="narr-body">${d.body||''}</div>${tags.length?`<div class="snote">${tags.map(t=>`<span class="wt-pill">${t}</span>`).join(' ')}</div>`:''}</div>`;
+  }).join('');
+}
+
+function onConsBlend(){
+  const v=parseInt($('consBlendSlider').value,10);
+  $('consBlendReadout').textContent=`Internal: ${v}% / External: ${100-v}%`;
+  renderConsolidated();
+}
+function onPLBlend(){
+  const v=parseInt($('plBlendSlider').value,10);
+  $('plBlendReadout').textContent=`Internal: ${v}% / External: ${100-v}%`;
+  renderPL();
+  renderNarr();
+}
+window.onConsBlend=onConsBlend;
+window.onPLBlend=onPLBlend;
+
+function init(){
+  try{
+    const cfg=DATA_CFG, tune=DATA_TUNE, b2b=DATA_B2B, ext=DATA_EXT, ute=DATA_UTE, infl=DATA_INFL;
+
+    CFG=cfg; TUNE=tune; EXT=ext; UTE=ute;
+    STATE.neutral = CFG.tool.neutral_b2b;
+
+    CFG.weights = (TUNE && TUNE.market_weights) ? TUNE.market_weights : {};
+    CFG.market.weight_labels = {};
+    (CFG.market.keys||[]).forEach(k=>{ const w=CFG.weights[k]||0; CFG.market.weight_labels[k]=Math.round(w*100)+'%'; });
+    if(TUNE && TUNE.geo_slider_defaults) CFG.geo.defaults=TUNE.geo_slider_defaults;
+
+    STATE.b2bMonths = b2b.firmwide.months || [];
+    STATE.b2bValues = b2b.firmwide.values || [];
+    STATE.plSeries = b2b.pl_series || {};
+    STATE.markets = ext.markets || {};
+
+    STATE.geoMix = {};
+    (CFG.geo.keys||[]).forEach(k=>{
+      const def = (CFG.geo.defaults && CFG.geo.defaults[k]) ? CFG.geo.defaults[k] : [20,20,20,20,20];
+      STATE.geoMix[k] = def.slice(0,5);
+    });
+
+    calibrateOnce();
+    renderInflation(infl);
+
+    $('dataBadge').textContent = '[LIVE] ' + (ext.last_updated || 'external_market_data.json');
+    $('lastUpdated').textContent = `Tuning: ${tune.last_updated||'—'}  |  B2B: ${b2b.last_updated||'—'}  |  UTE: ${ute.last_updated||'—'}  |  External: ${ext.last_updated||'—'}`;
+
+    onConsBlend();
+    onPLBlend();
+    renderMarkets();
+    renderGeoSliders();
+    renderPL();
+    renderNarr();
+    renderValueDrivers();
+
+    attachTooltip($('histChart'));
+    attachTooltip($('ppiChart'));
+
+  } catch(e){
+    console.error(e);
+    $('dataBadge').textContent='[ERROR] ' + e.message;
+    $('lastUpdated').textContent='Check browser console for details.';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+
+</html>
